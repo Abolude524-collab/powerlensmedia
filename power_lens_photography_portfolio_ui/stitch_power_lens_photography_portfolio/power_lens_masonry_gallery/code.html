@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary-fixed-variant":"#454747","surface-variant":"#353534","surface":"#131313","on-tertiary-container":"#636565","on-surface":"#e5e2e1","outline":"#8e9192","primary":"#ffffff","surface-tint":"#c6c6c7","tertiary-fixed-dim":"#c6c6c7","outline-variant":"#444748","on-tertiary-fixed-variant":"#454747","on-secondary-container":"#b8b8b8","tertiary":"#ffffff","on-error-container":"#ffdad6","surface-container-high":"#2a2a2a","on-secondary":"#2f3131","on-background":"#e5e2e1","error":"#ffb4ab","primary-fixed":"#e2e2e2","surface-container-lowest":"#0e0e0e","on-tertiary":"#2f3131","inverse-surface":"#e5e2e1","tertiary-container":"#e2e2e2","surface-container-low":"#1c1b1b","secondary-fixed-dim":"#c7c6c6","surface-bright":"#3a3939","primary-fixed-dim":"#c6c6c7","primary-container":"#e2e2e2","on-tertiary-fixed":"#1a1c1c","surface-container":"#201f1f","on-primary-fixed":"#1a1c1c","inverse-on-surface":"#313030","on-secondary-fixed":"#1a1c1c","secondary-fixed":"#e3e2e2","tertiary-fixed":"#e2e2e2","background":"#131313","error-container":"#93000a","surface-dim":"#131313","on-secondary-fixed-variant":"#464747","inverse-primary":"#5d5f5f","on-primary-container":"#636565","secondary":"#c7c6c6","surface-container-highest":"#353534","on-error":"#690005","on-primary":"#2f3131","on-surface-variant":"#c4c7c8","secondary-container":"#484949"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{"space-sm":"0.75rem","margin-desktop":"3rem","space-md":"1rem","space-2xl":"3rem","space-xs":"0.5rem","space-3xl":"4.5rem","space-lg":"1.5rem","space-xl":"2rem","margin-mobile":"1.25rem","space-2xs":"0.25rem",gutter:"1.5rem","space-4xl":"6rem"},fontFamily:{"headline-sm":["Montserrat"],"body-lg":["Montserrat"],"headline-md":["Montserrat"],"label-caps":["Montserrat"],"body-md":["Montserrat"],"headline-lg-mobile":["Montserrat"],"headline-lg":["Montserrat"],"display-hero":["Montserrat"],"label-mono-meta":["Montserrat"],"display-hero-mobile":["Montserrat"]},fontSize:{"headline-sm":["20px",{lineHeight:"28px",letterSpacing:"0",fontWeight:"500"}],"body-lg":["16px",{lineHeight:"26px",letterSpacing:"0",fontWeight:"400"}],"headline-md":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-caps":["11px",{lineHeight:"16px",letterSpacing:"0.12em",fontWeight:"600"}],"body-md":["14px",{lineHeight:"22px",letterSpacing:"0",fontWeight:"400"}],"headline-lg-mobile":["28px",{lineHeight:"36px",letterSpacing:"-0.01em",fontWeight:"600"}],"headline-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"600"}],"display-hero":["56px",{lineHeight:"64px",letterSpacing:"-0.03em",fontWeight:"700"}],"label-mono-meta":["12px",{lineHeight:"18px",letterSpacing:"0.04em",fontWeight:"500"}],"display-hero-mobile":["36px",{lineHeight:"44px",letterSpacing:"-0.02em",fontWeight:"700"}]}}}}</script></head><body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md antialiased selection:bg-primary selection:text-on-primary"><header class="fixed top-0 left-0 right-0 z-30 bg-surface-container-lowest/85 backdrop-blur-xl border-b border-outline-variant/30"><div class="h-16 w-full px-margin-mobile md:px-margin-desktop flex items-center justify-between"><a class="flex items-center gap-space-sm group" data-path="home" href="#"><img alt="Power Lens Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1W0lYDvEV_tCUYly8_QZ6LLeeLrbvXu0oJUfE3mStXEEvxsIMjbmtyxO1stsEQCoPmUlTR8yotrVn2N6XMt1Cv_NyaRsiBkmBbrCQVzV--0NaesOsBeBlUlDuM5SKjXsYZY4niW8urWN0a9RefEmz71_9nFKyBxqpSVvoEEEBYmrxM-V7k7r6Sco6Inx0SXyzALZsnCQUQsgGFbEFQ8U3j4ahPyN1nGFEEeI-r8gEWMVEFn5vlVtbtzkpc"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-primary group-hover:text-secondary-fixed transition-colors">POWER LENS</span><span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest hidden sm:inline-block">EDWARDS GODSPOWER</span></div></a><div class="flex items-center gap-space-lg"><nav class="hidden md:flex items-center gap-space-lg" data-active-classes="text-primary font-semibold"><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="home" href="#">Home</a><a aria-current="page" class="uppercase transition-colors text-primary font-semibold" data-path="gallery" href="#">Gallery</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="selected-works" href="#">Selected Works</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors" data-path="about-and-contact" href="#">About &amp; Contact</a><a class="font-label-caps text-label-caps uppercase text-on-surface-variant hover:text-primary transition-colors" href="https://instagram.com/mikano_shot_it" rel="noopener noreferrer" target="_blank">@mikano_shot_it</a></nav><div class="flex items-center pl-space-sm md:border-l md:border-outline-variant/40"><a class="flex items-center gap-space-xs rounded-full ring-1 ring-outline-variant/40 p-0.5 hover:ring-primary transition-all" data-path="about-and-contact" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0CS1XIoxTXpDDD7jeKWCD1okM3OvIji9nX8UXBNCtvDik8O-CK-CYNTAVruMwrHgUNJSWqldk2X97HumHutzbMIUSZoH9MtYYIk2N-qwX6SAasn8PGL29iH1R0YMwUUAVwOl2Co9ujxKXL7ogRfSu5w4R_2RHQdlTWRfp2xtxrPJT9T5j2OvTX3Zv0xEPYreIL1klolLztzSuO9bbRNeBVDIrpctX6B0TVU-GQkN9j2hiDwa8GZiV-g"/></a></div></div></div></header><main class="w-full pt-16 bg-surface-container-lowest min-h-screen"><div class="flex flex-col w-full">
+<section class="w-full px-margin-mobile md:px-margin-desktop py-space-2xl md:py-space-3xl flex flex-col">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-lg mb-space-3xl">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-mono-meta text-label-mono-meta tracking-widest uppercase">
+<span>Plate Archive</span>
+<span>·</span>
+<span>Series 2023—2025</span>
+</div>
+<h1 class="font-display-hero text-display-hero uppercase tracking-tighter text-primary">Gallery</h1>
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto pb-space-xs md:pb-0 scrollbar-none" id="category-filter-bar">
+<button class="filter-pill group relative px-space-md py-space-2xs rounded-full bg-surface text-primary transition-all" data-filter="all">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">All Works</span>
+<span class="active-indicator absolute bottom-0 left-space-md right-space-md h-[1.5px] bg-primary"></span>
+</button>
+<button class="filter-pill group relative px-space-md py-space-2xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-primary transition-all" data-filter="street">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Street</span>
+<span class="active-indicator hidden absolute bottom-0 left-space-md right-space-md h-[1.5px] bg-primary"></span>
+</button>
+<button class="filter-pill group relative px-space-md py-space-2xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-primary transition-all" data-filter="portraits">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Portraits</span>
+<span class="active-indicator hidden absolute bottom-0 left-space-md right-space-md h-[1.5px] bg-primary"></span>
+</button>
+<button class="filter-pill group relative px-space-md py-space-2xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-primary transition-all" data-filter="architectural">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Architectural</span>
+<span class="active-indicator hidden absolute bottom-0 left-space-md right-space-md h-[1.5px] bg-primary"></span>
+</button>
+<button class="filter-pill group relative px-space-md py-space-2xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-primary transition-all" data-filter="monochrome">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Monochrome</span>
+<span class="active-indicator hidden absolute bottom-0 left-space-md right-space-md h-[1.5px] bg-primary"></span>
+</button>
+<button class="filter-pill group relative px-space-md py-space-2xs rounded-full bg-surface-container-low text-on-surface-variant hover:text-primary transition-all" data-filter="night">
+<span class="font-label-caps text-label-caps uppercase tracking-wider">Night Series</span>
+<span class="active-indicator hidden absolute bottom-0 left-space-md right-space-md h-[1.5px] bg-primary"></span>
+</button>
+</div>
+</div>
+<div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4" id="masonry-gallery">
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[3/4]" data-category="street">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="High contrast dramatic monochrome photograph of bustling Balogun market Lagos with elongated morning shadows slanting across textured cobblestones, deep obsidian blacks, sharp highlights on moving pedestrian silhouettes and hanging fabric stalls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCgxSazzYzk8u8LO_8k4nIb9APNckoCyPnJWy1bmtA7YozmyOmnEiwsW5nBQCas4GRckxUOJMYGzdvh-H5Bmo2r_oS_XrcV5-4JX3d2jKqgh0H_IfTGkn_tq7qc1ixGLLOZQhg7G8qbu3yhdRQNQblCeUgawMHhj7h42GEBiLE_c62-fhBqhLNonHjeCdmAT101vTE24hcvKcuiUbvgUegfDKvZ2BXAYZJEv3reYK5EH0s13UurTmlTg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Street · Lagos Island</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Marina Shadows</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>24mm</span>
+<span>•</span>
+<span>ƒ/1.78</span>
+<span>•</span>
+<span>1/1250s</span>
+<span>•</span>
+<span>ISO 64</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[2/3]" data-category="portraits monochrome">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Chiaroscuro studio mobile portrait of a young Nigerian artist lit solely by a single harsh rim light carving dark skin tones against pure pitch-black negative space, sharp water droplets on cheekbone, editorial gaze" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHuFjVRTO90AOWLdX2tcKBy7E6QPiWuCMnTPyWqYrTDGCufNYDUcaf4kTIdO6WmIwzp6sB-NVVckwUyrpDzDBavwiguncYC5siQYhPzyTTcJvJ0boilQK1u9Zelg8xwNI-LaBJsqzixtvPD-KA9ciRdL8N-loaHf_Og4DB5merCcgfrZIYQ9o_ifCZGW1_rTdOO6q1JoOP8V7EJ_CNfI4dL-XKH0CIJzhrA1xAwPavFemS55gaMZoJDw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Portrait · Studio</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Silhouette &amp; Contour</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>77mm</span>
+<span>•</span>
+<span>ƒ/2.8</span>
+<span>•</span>
+<span>1/320s</span>
+<span>•</span>
+<span>ISO 100</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-square" data-category="architectural">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Geometric minimalist architectural framing of modern glass facade in Eko Atlantic Lagos with stark diagonal shadow cast by cantilevered concrete balcony against clear deep gradient sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVhaldawAtjUD_TzQwLEBBx_dOnK4MBRC5OPD3cqWQ4FbbpWT2Q8KY4_2Ye_eoNWuDbecBb-DIvuM5JKBsgvKVNM5LvP1t43Vw8x4Vfba5mR6SEQHnShoiNpr15PamiQ737CnY3oplxbmRit1RQZfwFtTv52TQ63OBGv5iDXsokUnx86U8FYXELNMwlExEcXPv-tOVrktuJa_grdxYvUKfZkO6N-vCMNFlFfkEJLdFZNdlczP-hVQ2gg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Architectural · Eko Atlantic</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Urban Geometry 04</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>13mm</span>
+<span>•</span>
+<span>ƒ/2.2</span>
+<span>•</span>
+<span>1/2000s</span>
+<span>•</span>
+<span>ISO 32</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[16/9]" data-category="night">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Long exposure cinematic night photograph underneath Ikeja flyover bridge showing vibrant crimson and amber streaks of headlights reflected against slick wet asphalt after heavy rainfall, dark industrial pillars" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDRP5A8gNmqjIsVl5weBWTXMg99Cz0gekhWoWigdJtXT19QSosYzccLGCMtyWev2LhEbbeQol28CJG4RiwQj5u6JLGbsTgrav3EbhLl2UJb04ToIF8wE5eu03gcuCudwoB1Xwm0Uwmc0JwJqaN1BxctVQlZs9zzyTZu_IDNQfZEs9QOyV5Anvp4Waprl_rM-siT5KeTng_bGov0I6-LxIxGgtsmCVa0N1fE6YzVRjU_K89AyKPsvxVag"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Night Series · Mainland</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Night Pulse / Underpass</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>24mm</span>
+<span>•</span>
+<span>ƒ/1.78</span>
+<span>•</span>
+<span>2.5s</span>
+<span>•</span>
+<span>ISO 200</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[2/3]" data-category="street monochrome">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Gritty street scene of a street vendor cutting fresh sugarcane, fine airborne moisture illuminated by sharp beam of afternoon sunlight cutting through corrugated zinc awning, hyper focused micro details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDinTgheCcU0nSrc3fSNoMzimqMkhmxDox4Y4hyRGdHS9JMRImKDnjqAUFLqr3z6AoYoLEV8DXpRhezqGgLc9debEKFWpy8bL1IMkdyHTNWnJv48jsg27evP-HH95_CbckD8myZobJnrgT3KoSGNbTxpRfWbS0uW5GbXtUgBMlH7jQuSImBl6Kv-qE6LtiyuuR7jPt_pGdP2BpQAqr3qp8AziAhs-jx7whGxAU5VhliwZ5RS5xwqSt4fw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Street · Oshodi</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">The Cane Cutter</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>48mm</span>
+<span>•</span>
+<span>ƒ/1.78</span>
+<span>•</span>
+<span>1/1000s</span>
+<span>•</span>
+<span>ISO 80</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[3/4]" data-category="portraits">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Candid outdoor portrait of an elder fisherman on Lekki shores looking out over calm misty Atlantic ocean, weathered features rendered with crisp textural fidelity, low-contrast overcast morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5SeAGd0fPR5L_7ssI0H2_71PUOgtzWrwJ83yIwHgg-a5sPZ5VRG5phQSEKOFPNNBJDwxa6zc4aaMg8ombrv57ZCALKcGJOdeobC4sCn3x0HJksqNXiFA31bgJnSSFBdhg1n1H1DEVyd4Dappo3C9FNyXhx1BPAXlRFkSMfTyVjWXJ-zSlwFbEMl_gp_ZfdeF23FBrC_GKu7Gp-6IaMqts63Mzj5h6t-lcUuvdG5U-ZWfAn0xOdMOzZw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Portraits · Lekki Coast</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Tide Guardian</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>77mm</span>
+<span>•</span>
+<span>ƒ/2.8</span>
+<span>•</span>
+<span>1/640s</span>
+<span>•</span>
+<span>ISO 125</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[2/1]" data-category="architectural">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Wide panoramic horizon of Lekki-Ikoyi Link Bridge suspension cables slicing into purple twilight, deep navy shadows on the lagoon water with crisp cable tension lines" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLlnMX-jTasylgibmInXj64sCMubrdx5bxUt8fMzYakUbER1Br18M38dup0Z7A8XGkpXvFDxsaCUBMtEibTEvd5nrrUiSmSlrTDpMtANXR0Gj5yAfP7i7kU6rEVmMe2bBQ6NgdHoWqp3jtA1hr8DA_wFhABwnGGimdce15z8tdedJic767gEi7i506PTQXI_q1nCUIfFJqdc3SOuQ6pcTHmOBoVGpIlQv0YPymijbiewnTAX3pH0bliQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Architectural · Ikoyi</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Span at Dusk</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>13mm</span>
+<span>•</span>
+<span>ƒ/2.2</span>
+<span>•</span>
+<span>1/15s</span>
+<span>•</span>
+<span>ISO 400</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[3/4]" data-category="night street">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Atmospheric night photograph of yellow Danfo bus waiting at traffic light with glowing red brake lights illuminating gentle exhaust smoke and reflections on damp asphalt, intense cinematic composition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQSYQLeWygkpdOigyxG8-_jzmNjKQcx27N3z3IGjprvMTitW-pr7Ax-sniq0o37xd6xc6JoNcdwtha5uB2qqw8HtJqe-6yqBP1ZMMK4tylh2TVK_YbRNbUFMwkM4rsr4rBtFraW9h11CoRjzD6TBNZ-qCNvrof1Fy3LrpbCbxrsKBon28leqIaEn-zd5QHMjXxiD1suzPBAovGv1lEhXARVfM8PlgNBgXYlrLjHRDOUOU8Myoby7ofog"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Night Series · Yaba</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Danfo in Amber</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>24mm</span>
+<span>•</span>
+<span>ƒ/1.78</span>
+<span>•</span>
+<span>1/45s</span>
+<span>•</span>
+<span>ISO 800</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-square" data-category="monochrome">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Monochrome macro capture of intersecting palm fronds casting precise razor shadows onto bleached white plaster wall in Victoria Island, pure minimalist texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpMbLopEXyJveOBq7SWwbPpFgvRTesnVbvk6ti9UypU3KMeb4XGgDk2s36LtdDuxdzHGoc6_69CdusM5sBo7RrNYMtn7I09WaA85T5KjSdl-wVIs3-GqMNcEIO90z54OpK0i0v5d2sCIs2nrs589q_Q5frbyBoW19hEiEc8C7fc6YvaJN3Uo26SRIbmjxmLUElvB2SqOBuKLVRzX3EzezyFxDpbosPNriEDMZOaU_1rv_NWXPmEgP6hA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Monochrome · Minimal</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Frond Calculus</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>48mm</span>
+<span>•</span>
+<span>ƒ/1.78</span>
+<span>•</span>
+<span>1/3200s</span>
+<span>•</span>
+<span>ISO 50</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[2/3]" data-category="street portraits">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Spontaneous candid portrait of youth skateboarder resting against concrete barrier under CMS overpass, backlight creating fiery halo through curly hair, authentic Lagos youth subculture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUqNEipRewL-pLgKzkGPmDdlBgAePl4mcyhqXKuVDnw1plio1wWmmir9nq6C4-PfLxH0hDY8A8M9SI0HHYXdpUjw0ELCsMn6O1o19T9GqlPODIudfxQvKra0aacG7xXZzysmSxLzxOsxGoXb5A8kpbI8MuWCT1PzLk6MDf0_dHFzoNRlbAmIt-5PXxbpuc2Vh9cUdN-gvpMRtfzXFwvIGtOhU7rBlCDuKjdVINW7FZTc4vImLMLZAZIA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Street · CMS Overpass</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Concrete &amp; Halo</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>77mm</span>
+<span>•</span>
+<span>ƒ/2.8</span>
+<span>•</span>
+<span>1/800s</span>
+<span>•</span>
+<span>ISO 160</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[16/9]" data-category="architectural night">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="Towering modernist bank skyscraper in Marina at blue hour with linear interior fluorescent lights glowing against cold exterior glass, sharp low-angle perspective" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU3LhBUW4lF0UpWUJhslpUoXgaWx1rj1dwzXuv1ibkTFZm4Ony9Lhp246Z6lMLFJceuPXkcHpq8hmmyoKRQr3px3VJPRgWglOZFGmdg0lEKQvU6R_kdFS_qXv2xlV_P1oag3IksZGLkz3d7PFEn7HSu-9HuVG9m0PSx2T_sPbj3u-XPTGDaWz6zqHKQi4YAHxXuU-oFEUF7ZspiPcKAawfjb6OHsk9HZr_-gg7HWsYjOlDI89NW2to7g"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Architectural · Marina</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Grid 102</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>13mm</span>
+<span>•</span>
+<span>ƒ/2.2</span>
+<span>•</span>
+<span>1/20s</span>
+<span>•</span>
+<span>ISO 320</span>
+</div>
+</div>
+</div>
+</div>
+<div class="gallery-item group relative overflow-hidden bg-surface-container break-inside-avoid cursor-pointer aspect-[3/4]" data-category="street monochrome">
+<img class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" data-alt="High contrast black and white shot of pigeons scattering in front of National Theatre concrete edifice, motion blur on flapping wings contrasting sharp architectural arches" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQgMAWD08yKv25TOtG0mOLiMc2-nWaW7EczRi0Bdu4ILZmVz6VqhBuPeAW09Nb3HJCVzOW_ChcBqZgA8yLRsnxhImRQqF77F03xmdWMBRnRHnFQF2wGQYEc9jb8UeXdSXuqnXeF1bOVTGQMopRd5dXMXYUXwf71x-jDVWq759vpx0jvAqx48y6o-cJU4ZtjIG08InuURCzm-QKDELgYQcLxtoU_C35ZQGfBsopQAWeXQJiE5DVZoh4iQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface-container-lowest/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-space-md">
+<div class="flex justify-end">
+<div class="w-9 h-9 rounded-full bg-surface-container-low/80 backdrop-blur-md flex items-center justify-center text-primary hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">open_in_full</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-2xs transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Monochrome · Iganmu</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Ascent &amp; Arch</span>
+<div class="flex items-center gap-space-xs font-label-mono-meta text-label-mono-meta text-on-surface-variant mt-space-2xs">
+<span>24mm</span>
+<span>•</span>
+<span>ƒ/1.78</span>
+<span>•</span>
+<span>1/4000s</span>
+<span>•</span>
+<span>ISO 64</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full mt-space-3xl md:mt-space-4xl flex flex-col items-center gap-space-lg">
+<div class="w-full max-w-xs flex flex-col gap-space-xs">
+<div class="flex justify-between font-label-mono-meta text-label-mono-meta text-on-surface-variant">
+<span class="uppercase tracking-wider">Archive Exhibition</span>
+<span class="text-primary" id="progress-text">Showing 12 of 64</span>
+</div>
+<div class="w-full h-1 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary transition-all duration-500" id="progress-bar" style="width: 18.75%"></div>
+</div>
+</div>
+<button class="group relative px-space-2xl py-space-sm rounded bg-surface-container text-on-surface hover:text-primary hover:bg-surface-bright transition-all flex items-center gap-space-xs cursor-pointer" id="load-more-btn">
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Load More Curated Works</span>
+<span class="material-symbols-outlined text-[16px] group-hover:translate-y-0.5 transition-transform">south</span>
+</button>
+</div>
+</section>
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/95 backdrop-blur-2xl hidden flex-col justify-between p-space-md md:p-space-2xl" id="lightbox-modal">
+<div class="w-full flex items-center justify-between z-10">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight" id="lb-title">Marina Shadows</span>
+<span class="font-label-mono-meta text-label-mono-meta text-on-surface-variant" id="lb-meta">Street · Lagos Island · 2024</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="w-11 h-11 rounded bg-surface-container text-primary flex items-center justify-center hover:bg-surface-bright transition-colors cursor-pointer" id="lb-close">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+</div>
+<div class="relative flex-1 flex items-center justify-center my-space-md overflow-hidden">
+<img alt="Lightbox image" class="max-h-full max-w-full object-contain" id="lb-image" src=""/>
+</div>
+<div class="w-full flex flex-col md:flex-row items-center justify-between gap-space-md py-space-sm z-10">
+<div class="flex items-center gap-space-md px-space-md py-space-xs rounded bg-surface-container font-label-mono-meta text-label-mono-meta text-on-surface-variant" id="lb-exif">
+<span>Focal: <strong class="text-primary font-medium" id="lb-focal">24mm</strong></span>
+<span>•</span>
+<span>Aperture: <strong class="text-primary font-medium" id="lb-aperture">ƒ/1.78</strong></span>
+<span>•</span>
+<span>Shutter: <strong class="text-primary font-medium" id="lb-shutter">1/1250s</strong></span>
+<span>•</span>
+<span>ISO: <strong class="text-primary font-medium" id="lb-iso">64</strong></span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-space-xs rounded bg-surface-container hover:bg-surface-bright text-primary flex items-center gap-space-2xs cursor-pointer" id="lb-prev">
+<span class="material-symbols-outlined text-[18px]">west</span>
+<span class="font-label-caps text-label-caps uppercase">Prev</span>
+</button>
+<button class="px-space-md py-space-xs rounded bg-surface-container hover:bg-surface-bright text-primary flex items-center gap-space-2xs cursor-pointer" id="lb-next">
+<span class="font-label-caps text-label-caps uppercase">Next</span>
+<span class="material-symbols-outlined text-[18px]">east</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+    (function() {
+      const filterButtons = document.querySelectorAll('.filter-pill');
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const lightbox = document.getElementById('lightbox-modal');
+      const lbClose = document.getElementById('lb-close');
+      const lbImage = document.getElementById('lb-image');
+      const lbTitle = document.getElementById('lb-title');
+      const lbMeta = document.getElementById('lb-meta');
+      const lbFocal = document.getElementById('lb-focal');
+      const lbAperture = document.getElementById('lb-aperture');
+      const lbShutter = document.getElementById('lb-shutter');
+      const lbIso = document.getElementById('lb-iso');
+      const lbPrev = document.getElementById('lb-prev');
+      const lbNext = document.getElementById('lb-next');
+      const loadMoreBtn = document.getElementById('load-more-btn');
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+
+      let currentFilter = 'all';
+      let activeIndex = 0;
+      let visibleList = [];
+
+      function updateVisibleList() {
+        visibleList = Array.from(galleryItems).filter(item => {
+          if (currentFilter === 'all') return true;
+          const cats = item.getAttribute('data-category').split(' ');
+          return cats.includes(currentFilter);
+        });
+      }
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach(b => {
+            b.classList.remove('bg-surface', 'text-primary');
+            b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+            const ind = b.querySelector('.active-indicator');
+            if (ind) ind.classList.add('hidden');
+          });
+
+          btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+          btn.classList.add('bg-surface', 'text-primary');
+          const activeInd = btn.querySelector('.active-indicator');
+          if (activeInd) activeInd.classList.remove('hidden');
+
+          currentFilter = btn.getAttribute('data-filter');
+
+          galleryItems.forEach(item => {
+            const cats = item.getAttribute('data-category').split(' ');
+            if (currentFilter === 'all' || cats.includes(currentFilter)) {
+              item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+
+          updateVisibleList();
+        });
+      });
+
+      function openLightbox(index) {
+        updateVisibleList();
+        if (!visibleList[index]) return;
+        activeIndex = index;
+        const target = visibleList[index];
+        const img = target.querySelector('img');
+        const titleEl = target.querySelector('.font-headline-sm');
+        const metaEl = target.querySelector('.font-label-caps');
+        const exifDiv = target.querySelector('.font-label-mono-meta');
+        const exifSpans = exifDiv ? exifDiv.querySelectorAll('span') : [];
+
+        lbImage.src = img.src;
+        lbTitle.textContent = titleEl ? titleEl.textContent : 'Power Lens Plate';
+        lbMeta.textContent = metaEl ? metaEl.textContent : 'Edwards Godspower Archive';
+
+        if (exifSpans.length >= 7) {
+          lbFocal.textContent = exifSpans[0].textContent;
+          lbAperture.textContent = exifSpans[2].textContent;
+          lbShutter.textContent = exifSpans[4].textContent;
+          lbIso.textContent = exifSpans[6].textContent;
+        }
+
+        lightbox.classList.remove('hidden');
+        lightbox.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.add('hidden');
+        lightbox.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+
+      galleryItems.forEach((item) => {
+        item.addEventListener('click', () => {
+          updateVisibleList();
+          const idx = visibleList.indexOf(item);
+          if (idx !== -1) openLightbox(idx);
+        });
+      });
+
+      lbClose.addEventListener('click', closeLightbox);
+
+      lbPrev.addEventListener('click', () => {
+        if (visibleList.length === 0) return;
+        activeIndex = (activeIndex - 1 + visibleList.length) % visibleList.length;
+        openLightbox(activeIndex);
+      });
+
+      lbNext.addEventListener('click', () => {
+        if (visibleList.length === 0) return;
+        activeIndex = (activeIndex + 1) % visibleList.length;
+        openLightbox(activeIndex);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (lightbox.classList.contains('hidden')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') lbPrev.click();
+        if (e.key === 'ArrowRight') lbNext.click();
+      });
+
+      let loadedCount = 12;
+      const totalCount = 64;
+
+      loadMoreBtn.addEventListener('click', () => {
+        if (loadedCount >= totalCount) return;
+        loadedCount = Math.min(loadedCount + 6, totalCount);
+        const percent = (loadedCount / totalCount) * 100;
+        progressBar.style.width = percent + '%';
+        progressText.textContent = `Showing ${loadedCount} of ${totalCount}`;
+
+        if (loadedCount >= totalCount) {
+          loadMoreBtn.innerHTML = '<span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant">Complete Archive Displayed</span>';
+          loadMoreBtn.classList.add('opacity-50', 'pointer-events-none');
+        }
+      });
+
+      updateVisibleList();
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-outline-variant/30 py-space-xl"><div class="w-full px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-md font-label-mono-meta text-label-mono-meta text-on-surface-variant"><div class="flex flex-col sm:flex-row items-center gap-space-xs sm:gap-space-md text-center md:text-left"><span>© POWER LENS · Edwards Godspower</span><span class="hidden sm:inline-block text-outline-variant">|</span><a class="hover:text-primary transition-colors" href="https://instagram.com/mikano_shot_it" rel="noopener noreferrer" target="_blank">@mikano_shot_it</a></div><div class="flex items-center gap-space-lg"><span class="tracking-widest uppercase">Lagos / Worldwide</span><a class="flex items-center gap-space-2xs text-on-surface-variant hover:text-primary transition-colors uppercase" href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;"><span class="font-label-caps text-label-caps">Top</span><span class="material-symbols-outlined text-[16px]">north</span></a></div></div></footer></body></html>
