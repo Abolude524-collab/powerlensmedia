@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   if (!request.nextUrl.pathname.startsWith("/admin")) return NextResponse.next();
   if (request.nextUrl.pathname === "/admin/login") return NextResponse.next();
   if (!request.cookies.has("powerlens_session")) {
