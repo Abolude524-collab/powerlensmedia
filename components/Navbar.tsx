@@ -7,11 +7,13 @@ import Image from "next/image";
 interface NavbarProps {
   activeSection?: string;
   profilePictureUrl?: string;
+  onOpenBooking?: () => void;
 }
 
 export default function Navbar({
   activeSection = "home",
   profilePictureUrl,
+  onOpenBooking,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
 
@@ -50,7 +52,7 @@ export default function Navbar({
         </Link>
 
         {/* Editorial Navigation */}
-        <nav className="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-wider font-montserrat">
+        <nav className="hidden md:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider font-montserrat">
           <a
             href="#home"
             className={`transition-colors ${
@@ -58,6 +60,14 @@ export default function Navbar({
             }`}
           >
             Home
+          </a>
+          <a
+            href="#services"
+            className={`transition-colors ${
+              activeSection === "services" ? "text-white font-bold" : "text-neutral-400 hover:text-white"
+            }`}
+          >
+            Services
           </a>
           <a
             href="#gallery"
@@ -93,8 +103,16 @@ export default function Navbar({
           </a>
         </nav>
 
-        {/* Profile Avatar */}
-        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+        {/* Header Right Actions */}
+        <div className="flex shrink-0 items-center gap-3 sm:gap-4">
+          <a
+            href="#contact"
+            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 bg-white text-black font-bold font-mono text-[11px] uppercase tracking-wider hover:bg-neutral-200 transition-colors rounded-xs shadow-sm"
+          >
+            <span className="material-symbols-outlined text-[15px]">calendar_month</span>
+            <span>Book Session</span>
+          </a>
+
           {profilePictureUrl && (
             <a
               href="#contact"

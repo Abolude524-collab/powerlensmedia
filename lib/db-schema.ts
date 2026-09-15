@@ -63,3 +63,31 @@ export const analyticsEvents = pgTable("analytics_events", {
   index("analytics_events_created_at_idx").on(table.createdAt),
   index("analytics_events_name_idx").on(table.eventName, table.createdAt),
 ]);
+
+export const inquiries = pgTable("inquiries", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  message: text("message").notNull(),
+  status: text("status").notNull().default("unread"),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => [
+  index("inquiries_created_at_idx").on(table.createdAt),
+]);
+
+export const services = pgTable("services", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  subtitle: text("subtitle").notNull(),
+  imageUrl: text("image_url").notNull(),
+  category: text("category"),
+  sortOrder: integer("sort_order").notNull().default(0),
+  published: boolean("published").notNull().default(true),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+}, (table) => [
+  index("services_sort_published_idx").on(table.published, table.sortOrder),
+]);
+

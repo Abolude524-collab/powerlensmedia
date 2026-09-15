@@ -82,10 +82,20 @@ export default function MasonryGallery({
 
       {/* Masonry Columns Layout */}
       {filteredPhotos.length === 0 ? (
-        <div className="py-20 text-center border border-dashed border-neutral-800 rounded-2xl">
-          <p className="text-neutral-400 text-xs font-mono">
-            No archival frames found in category &quot;{activeCategory}&quot;.
+        <div className="py-16 text-center border border-dashed border-neutral-800 rounded-2xl bg-[#121212]/50 flex flex-col items-center justify-center px-4">
+          <p className="text-neutral-400 text-xs font-mono uppercase tracking-widest mb-2">
+            No Archival Frames
           </p>
+          <p className="text-neutral-300 text-sm max-w-md font-light mb-6 leading-relaxed">
+            No frames currently published in &quot;<span className="text-white font-medium">{activeCategory}</span>&quot;. New entries are regularly added.
+          </p>
+          <button
+            type="button"
+            onClick={() => onSelectCategory("All Works")}
+            className="border border-amber-500/80 text-amber-400 hover:bg-amber-500 hover:text-black px-5 py-2.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300"
+          >
+            View All Works →
+          </button>
         </div>
       ) : (
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">

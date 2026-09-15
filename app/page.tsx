@@ -3,16 +3,19 @@
 import React, { useState, useEffect, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import ServicesSection from "../components/ServicesSection";
 import MasonryGallery from "../components/MasonryGallery";
 import LightboxModal from "../components/LightboxModal";
 import FooterContact from "../components/FooterContact";
-import { PhotoItem, SiteSettings } from "../lib/content-types";
+import { PhotoItem, SiteSettings, ServiceItem } from "../lib/content-types";
+import { FALLBACK_SETTINGS, FALLBACK_SERVICES } from "../lib/content-fallback";
 import { trackEvent } from "../lib/analytics";
 
 export default function Home() {
   const [photos, setPhotos] = useState<PhotoItem[]>([]);
+  const [services, setServices] = useState<ServiceItem[]>(FALLBACK_SERVICES);
   const [categories, setCategories] = useState<string[]>(["All Works"]);
-  const [settings, setSettings] = useState<SiteSettings | null>(null);
+  const [settings, setSettings] = useState<SiteSettings>(FALLBACK_SETTINGS);
   const [activeCategory, setActiveCategory] = useState<string>("All Works");
   const [previewMode, setPreviewMode] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoItem | null>(null);
@@ -25,10 +28,11 @@ export default function Home() {
       try {
         const response = await fetch("/api/content", { cache: "no-store" });
         if (!response.ok) throw new Error(`Content request failed: ${response.status}`);
-        const data: { photos: PhotoItem[]; categories?: string[]; settings: SiteSettings } = await response.json();
+        const data: { photos: PhotoItem[]; categories?: string[]; services?: ServiceItem[]; settings: SiteSettings } = await response.json();
         setPhotos(data.photos);
+        if (data.services && data.services.length) setServices(data.services);
         setCategories(["All Works", ...(data.categories || [])]);
-        setSettings(data.settings);
+        if (data.settings) setSettings(data.settings);
       } catch (error) {
         console.error("Unable to load portfolio content:", error);
       }
@@ -39,6 +43,7 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
+      const servicesElement = document.getElementById("services");
       const galleryElement = document.getElementById("gallery");
       const aboutElement = document.getElementById("about");
       const contactElement = document.getElementById("contact");
@@ -49,6 +54,8 @@ export default function Home() {
         setActiveSection("about");
       } else if (galleryElement && scrollPosition >= galleryElement.offsetTop) {
         setActiveSection("gallery");
+      } else if (servicesElement && scrollPosition >= servicesElement.offsetTop) {
+        setActiveSection("services");
       } else {
         setActiveSection("home");
       }
@@ -65,16 +72,20 @@ export default function Home() {
     }
   };
 
-  if (!settings) {
-    return (
-      <div className="min-h-screen bg-[#0e0e0e] text-white flex items-center justify-center font-mono text-xs tracking-widest uppercase">
-        <div className="flex items-center gap-3">
-          <div className="w-2 h-2 rounded-full bg-white animate-ping" />
-          <span>POWER LENS • LOADING ARCHIVE...</span>
-        </div>
-      </div>
-    );
-  }
+  const handleSelectServiceCategory = (category: string) => {
+    // Look for matching category in the available categories list (case-insensitive)
+    const matchedCategory = categories.find((c) => c.toLowerCase() === category.toLowerCase()) || category;
+    if (!categories.includes(matchedCategory)) {
+      setCategories((prev) => [...prev, matchedCategory]);
+    }
+    setActiveCategory(matchedCategory);
+    setPreviewMode(false);
+  };
+
+  const handleSelectCategory = (category: string) => {
+    setActiveCategory(category);
+    setPreviewMode(false);
+  };
 
   const featuredPhoto = photos.find((p) => p.featured) || photos[0];
   const heroPhotos = photos.filter((photo) => photo.hero).sort((first, second) => (first.heroOrder || 0) - (second.heroOrder || 0));
@@ -100,13 +111,19 @@ export default function Home() {
         onScrollToGallery={handleScrollToGallery}
       />
 
+      {/* What I Do / Photography Services */}
+      <ServicesSection
+        services={services}
+        onSelectCategory={handleSelectServiceCategory}
+      />
+
       {/* Archival Masonry Gallery */}
       <div ref={galleryRef}>
         <MasonryGallery
           photos={photos}
           onSelectPhoto={handleSelectPhoto}
           activeCategory={activeCategory}
-          onSelectCategory={setActiveCategory}
+          onSelectCategory={handleSelectCategory}
           categories={categories}
           previewMode={previewMode}
           onTogglePreview={() => setPreviewMode(false)}
@@ -126,3 +143,4 @@ export default function Home() {
     </div>
   );
 }
+

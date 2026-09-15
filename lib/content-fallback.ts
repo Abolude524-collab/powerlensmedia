@@ -1,4 +1,4 @@
-import { PhotoItem, SiteSettings } from "./content-types";
+import { PhotoItem, SiteSettings, ServiceItem } from "./content-types";
 
 export const FALLBACK_PHOTOS: PhotoItem[] = [
   {
@@ -38,3 +38,87 @@ export const FALLBACK_SETTINGS: SiteSettings = {
     { platform: "Facebook", handle: "Edwards Godspower", url: "https://www.facebook.com/profile.php?id=61571600835845" },
   ],
 };
+
+export const FALLBACK_SERVICES: ServiceItem[] = [
+  {
+    _id: "service-1",
+    title: "Wedding Photography",
+    slug: "wedding-photography",
+    subtitle: "Your love story, preserved in every detail.",
+    imageUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=1200",
+    category: "Wedding",
+    sortOrder: 1,
+    published: true,
+  },
+  {
+    _id: "service-2",
+    title: "Birthday Photoshoots",
+    slug: "birthday-photoshoots",
+    subtitle: "Portraits that belong in a magazine.",
+    imageUrl: "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&q=80&w=1200",
+    category: "Portraits",
+    sortOrder: 2,
+    published: true,
+  },
+  {
+    _id: "service-3",
+    title: "Event Photography",
+    slug: "event-photography",
+    subtitle: "Every highlight, every expression captured.",
+    imageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=1200",
+    category: "Events",
+    sortOrder: 3,
+    published: true,
+  },
+  {
+    _id: "service-4",
+    title: "Convocation Shoots",
+    slug: "convocation-shoots",
+    subtitle: "Milestone moments deserve milestone photos.",
+    imageUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1200",
+    category: "Graduation",
+    sortOrder: 4,
+    published: true,
+  },
+  {
+    _id: "service-5",
+    title: "Food Photography",
+    slug: "food-photography",
+    subtitle: "Making dishes look as good as they taste.",
+    imageUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=1200",
+    category: "Commercial",
+    sortOrder: 5,
+    published: true,
+  },
+  {
+    _id: "service-6",
+    title: "Product Photography",
+    slug: "product-photography",
+    subtitle: "Clean, commercial grade product visuals.",
+    imageUrl: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=1200",
+    category: "Commercial",
+    sortOrder: 6,
+    published: true,
+  },
+  {
+    _id: "service-7",
+    title: "Church Photography",
+    slug: "church-photography",
+    subtitle: "Worship moments preserved with reverence.",
+    imageUrl: "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&q=80&w=1200",
+    category: "Documentary",
+    sortOrder: 7,
+    published: true,
+  },
+  {
+    _id: "service-8",
+    title: "Nature Photography",
+    slug: "nature-photography",
+    subtitle: "The quiet beauty of the world around us.",
+    imageUrl: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&q=80&w=1200",
+    category: "Landscape",
+    sortOrder: 8,
+    published: true,
+  },
+];
+

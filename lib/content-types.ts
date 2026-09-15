@@ -31,3 +31,15 @@ export interface SiteSettings {
     url: string;
   }>;
 }
+
+export interface ServiceItem {
+  _id: string;
+  title: string;
+  slug?: string;
+  subtitle: string;
+  imageUrl: string;
+  category?: string;
+  sortOrder?: number;
+  published?: boolean;
+}
+

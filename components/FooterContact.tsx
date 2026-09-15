@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { SiteSettings } from "../lib/content-types";
 import { trackEvent } from "../lib/analytics";
+import CalendlyModal from "./CalendlyModal";
+import InteractiveBooking from "./InteractiveBooking";
 
 interface FooterContactProps {
   settings: SiteSettings;
@@ -11,12 +13,70 @@ interface FooterContactProps {
 
 export default function FooterContact({ settings }: FooterContactProps) {
   const [copied, setCopied] = useState(false);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  const [showCalendlyInline, setShowCalendlyInline] = useState(false);
+  const [calendlyLoading, setCalendlyLoading] = useState(true);
+
+  // Form State
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(settings.contactEmail);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
+
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    if (errorMsg) setErrorMsg("");
+  };
+
+  const handleSubmitMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!form.name || !form.email || !form.phone || !form.message) {
+      setErrorMsg("Please fill in all fields (Name, Phone, Email, and Message).");
+      return;
+    }
+
+    setSubmitting(true);
+    setErrorMsg("");
+    setSuccessMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send message.");
+      }
+
+      trackEvent("contact_form_submit", "email_dispatch");
+      setSuccessMsg("Thank you! Your message has been sent. Check your email for confirmation.");
+      setForm({ name: "", phone: "", email: "", message: "" });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setErrorMsg(message);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const calendlyInlineUrl =
+    "https://calendly.com/testimonyabolude/30min?background_color=0e0e0e&text_color=ffffff&primary_color=ffffff";
 
   return (
     <footer className="w-full bg-[#0e0e0e] text-[#e5e2e1] border-t border-neutral-800/80 pt-20 pb-12 font-sans">
@@ -40,7 +100,7 @@ export default function FooterContact({ settings }: FooterContactProps) {
         </div>
 
         {/* Dossier Grid: Editorial Portrait & Narrative */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-20 border-b border-neutral-900">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-16 border-b border-neutral-900">
           {/* Left Column: Portrait & Telemetry */}
           <div className="lg:col-span-5 flex flex-col gap-6">
             <div className="relative w-full bg-[#131313] overflow-hidden border border-neutral-800 shadow-2xl group">
@@ -87,6 +147,39 @@ export default function FooterContact({ settings }: FooterContactProps) {
               </div>
             </div>
 
+            {/* Quick Action Anchor Navigation Card */}
+            <div className="bg-gradient-to-br from-[#1c1b1b] to-[#121212] p-6 border border-neutral-800 flex flex-col gap-4 shadow-xl">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                  COMMISSION CHANNELS
+                </span>
+                <span className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 border border-emerald-800/60 rounded">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  ONLINE
+                </span>
+              </div>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Send a message directly or jump straight down to reserve an appointment slot on the calendar.
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href="#contact"
+                  className="py-2.5 px-3 font-mono text-xs uppercase tracking-wider bg-[#141414] hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 transition-all flex items-center justify-center gap-1.5 rounded-xs"
+                >
+                  <span className="material-symbols-outlined text-[16px]">mail</span>
+                  <span>Message</span>
+                </a>
+
+                <a
+                  href="#booking"
+                  className="py-2.5 px-3 font-mono text-xs uppercase tracking-wider bg-white text-black font-bold hover:bg-neutral-200 border border-white transition-all flex items-center justify-center gap-1.5 rounded-xs shadow-md"
+                >
+                  <span className="material-symbols-outlined text-[16px]">calendar_month</span>
+                  <span>Book Session</span>
+                </a>
+              </div>
+            </div>
+
             {/* Hardware Telemetry Card */}
             <div className="bg-[#1c1b1b] p-6 flex flex-col gap-4 border border-neutral-800">
               <div className="flex items-center justify-between">
@@ -115,8 +208,8 @@ export default function FooterContact({ settings }: FooterContactProps) {
             </div>
           </div>
 
-          {/* Right Column: Statement, Philosophy & Direct Inquiry */}
-          <div className="lg:col-span-7 flex flex-col gap-10">
+          {/* Right Column: Statement, Dedicated Contact Form & Dedicated Booking Section */}
+          <div className="lg:col-span-7 flex flex-col gap-12">
             <div>
               <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 block mb-2">
                 STATEMENT / PHILOSOPHY
@@ -144,32 +237,199 @@ export default function FooterContact({ settings }: FooterContactProps) {
               </div>
             </div>
 
-            {/* Direct Email Inquiry Card */}
-            <div id="contact" className="p-6 bg-[#1c1b1b] border border-neutral-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500 block">
-                  COMMISSION &amp; PRINT INQUIRIES
-                </span>
-                <span className="font-mono text-sm text-white font-semibold">
+            {/* SECTION 1: DIRECT CONTACT MESSAGE FORM */}
+            <div id="contact" className="p-6 sm:p-8 bg-[#151515] border border-neutral-800 flex flex-col gap-6 shadow-2xl rounded-sm">
+              <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
+                <div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 block">
+                    DIRECT INQUIRY CHANNEL
+                  </span>
+                  <h2 className="text-2xl font-bold uppercase tracking-tight text-white font-montserrat mt-0.5">
+                    Send Us A Message
+                  </h2>
+                </div>
+                <span className="font-mono text-xs text-neutral-500 hidden sm:inline">
                   {settings.contactEmail}
                 </span>
               </div>
-              <div className="flex flex-wrap items-center gap-4">
-                <a
-                  href={`mailto:${settings.contactEmail}?subject=Photography%20Inquiry%20-%20Power%20Lens`}
-                  onClick={() => trackEvent("contact_click", "email")}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold font-mono uppercase tracking-wider text-white hover:text-neutral-300 transition-colors whitespace-nowrap"
-                >
-                  <span>Inquire</span>
-                  <span aria-hidden="true">→</span>
-                </a>
-                <button
-                  onClick={handleCopyEmail}
-                  className="px-6 py-2.5 bg-white text-black font-semibold text-xs font-mono uppercase tracking-wider hover:bg-neutral-200 transition-colors whitespace-nowrap active:scale-95"
-                >
-                  {copied ? "Copied! ✓" : "Copy Mail"}
-                </button>
+
+              {successMsg && (
+                <div className="p-4 bg-emerald-950/80 border border-emerald-700/80 text-emerald-300 text-xs font-mono rounded flex items-start gap-3">
+                  <span className="material-symbols-outlined text-[18px] text-emerald-400 shrink-0">check_circle</span>
+                  <span>{successMsg}</span>
+                </div>
+              )}
+
+              {errorMsg && (
+                <div className="p-4 bg-rose-950/80 border border-rose-700/80 text-rose-300 text-xs font-mono rounded flex items-start gap-3">
+                  <span className="material-symbols-outlined text-[18px] text-rose-400 shrink-0">error</span>
+                  <span>{errorMsg}</span>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmitMessage} className="flex flex-col gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Name Input */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={form.name}
+                      onChange={handleFormChange}
+                      placeholder="e.g. Sarah Jenkins"
+                      required
+                      className="w-full px-4 py-3 bg-[#0e0e0e] border border-neutral-800 rounded focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
+                    />
+                  </div>
+
+                  {/* Phone Input */}
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleFormChange}
+                      placeholder="e.g. +234 801 234 5678"
+                      required
+                      className="w-full px-4 py-3 bg-[#0e0e0e] border border-neutral-800 rounded focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
+                    />
+                  </div>
+                </div>
+
+                {/* Email Input */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleFormChange}
+                    placeholder="e.g. sarah@example.com"
+                    required
+                    className="w-full px-4 py-3 bg-[#0e0e0e] border border-neutral-800 rounded focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
+                  />
+                </div>
+
+                {/* Message Input */}
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                    Your Message / Project Details *
+                  </label>
+                  <textarea
+                    name="message"
+                    rows={4}
+                    value={form.message}
+                    onChange={handleFormChange}
+                    placeholder="Describe your session, date preferences, location, or photography goals..."
+                    required
+                    className="w-full px-4 py-3 bg-[#0e0e0e] border border-neutral-800 rounded focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans resize-none"
+                  />
+                </div>
+
+                {/* Form Actions */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="text-xs font-mono text-neutral-400 hover:text-white transition-colors underline uppercase tracking-wider"
+                    >
+                      {copied ? "Copied Mail! ✓" : "Copy Direct Email"}
+                    </button>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold text-xs font-mono uppercase tracking-wider hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95 shadow-md"
+                  >
+                    {submitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                        <span>Sending Message...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Transmit Message</span>
+                        <span aria-hidden="true">→</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* SECTION 2: DEDICATED APPOINTMENT SCHEDULER SECTION */}
+            <div id="booking" className="flex flex-col gap-4">
+              <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="font-mono text-xs uppercase tracking-widest text-neutral-300 font-bold">
+                    RESERVE A SESSION
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setShowCalendlyInline(!showCalendlyInline)}
+                    className="font-mono text-[11px] text-neutral-400 hover:text-white uppercase tracking-wider transition-colors underline"
+                  >
+                    {showCalendlyInline ? "Switch to Custom Scheduler" : "Switch to Calendly View"}
+                  </button>
+                  <button
+                    onClick={() => setIsCalendlyOpen(true)}
+                    className="hidden sm:inline-flex items-center gap-1 font-mono text-[10px] text-neutral-400 hover:text-white uppercase tracking-wider transition-colors"
+                  >
+                    <span>Popout</span>
+                    <span className="material-symbols-outlined text-[14px]">open_in_new</span>
+                  </button>
+                </div>
               </div>
+
+              {!showCalendlyInline ? (
+                /* Custom Interactive Scheduler with Prev/Next day buttons & vertical time slots */
+                <InteractiveBooking contactEmail={settings.contactEmail} />
+              ) : (
+                /* Inline Calendly Widget */
+                <div className="p-4 sm:p-6 bg-[#151515] border border-neutral-800 flex flex-col gap-4 shadow-2xl rounded-sm">
+                  <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
+                    <div>
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 block">
+                        CALENDLY EMBED WIDGET
+                      </span>
+                      <h2 className="text-xl font-bold uppercase tracking-tight text-white font-montserrat mt-0.5">
+                        Calendly Appointment View
+                      </h2>
+                    </div>
+                  </div>
+
+                  <div
+                    className="calendly-inline-widget w-full rounded border border-neutral-800 bg-[#0e0e0e] overflow-hidden relative"
+                    style={{ minWidth: "320px", height: "680px" }}
+                  >
+                    {calendlyLoading && (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0e0e0e] text-white font-mono text-xs gap-3 z-10">
+                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>LOADING CALENDLY SCHEDULER...</span>
+                      </div>
+                    )}
+                    <iframe
+                      src={calendlyInlineUrl}
+                      title="Select a Date & Time - Calendly"
+                      className="w-full h-full border-0"
+                      onLoad={() => setCalendlyLoading(false)}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Social Connectivity Grid */}
@@ -217,6 +477,13 @@ export default function FooterContact({ settings }: FooterContactProps) {
           </div>
         </div>
       </div>
+
+      {/* Calendly Booking Modal */}
+      <CalendlyModal
+        isOpen={isCalendlyOpen}
+        onClose={() => setIsCalendlyOpen(false)}
+        calendlyUrl="https://calendly.com/testimonyabolude/30min"
+      />
     </footer>
   );
 }

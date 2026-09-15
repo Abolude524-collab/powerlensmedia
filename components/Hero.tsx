@@ -55,25 +55,8 @@ export default function Hero({
       <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-[#0e0e0e]/40 to-[#0e0e0e]/80 pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-[#0e0e0e]/90 pointer-events-none" />
 
-      {/* Top Exhibition Meta Badge */}
-      <div className="relative z-10 w-full pt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="inline-block w-2 h-2 rounded-full bg-white animate-pulse" />
-          <span className="max-w-[18rem] text-[10px] sm:text-[11px] leading-tight font-mono tracking-widest text-neutral-300 uppercase">
-            EXHIBITION NO. 01 — ARCHIVAL CUT
-          </span>
-        </div>
-        <div className="hidden sm:flex items-center gap-3 text-[11px] font-mono text-neutral-400">
-          <span>ISO 50</span>
-          <span className="text-neutral-600">•</span>
-          <span>24MM EQUIV.</span>
-          <span className="text-neutral-600">•</span>
-          <span>1/1250S</span>
-        </div>
-      </div>
-
       {/* Centered Editorial Type Core */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center my-auto py-12">
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center my-auto py-12 pt-24">
         <div className="inline-block mb-3 overflow-hidden">
           <p className="text-[11px] font-mono uppercase tracking-widest text-neutral-400">
             Mobile Photography / {settings.alias}
@@ -117,29 +100,9 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Bottom Technical Ribbon & Scroll Cue */}
+      {/* Bottom Scroll Cue */}
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8">
-        <div className="w-full bg-[#1c1b1b]/80 backdrop-blur-md border border-neutral-800/80 px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          {/* Technical Telemetry */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-x-8 gap-y-2 w-full md:w-auto font-mono text-[11px]">
-            <div className="flex flex-col">
-              <span className="text-neutral-500 uppercase text-[9px] tracking-widest">SERIES</span>
-              <span className="text-white font-medium tracking-wider">01 / HERO FEATURE</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-neutral-500 uppercase text-[9px] tracking-widest">HARDWARE</span>
-              <span className="text-white font-medium tracking-wider">IPHONE 15 PRO MAX</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-neutral-500 uppercase text-[9px] tracking-widest">OPTICS</span>
-              <span className="text-white font-medium tracking-wider">ƒ/1.78 SC</span>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-neutral-500 uppercase text-[9px] tracking-widest">COORDINATES</span>
-              <span className="text-white font-medium tracking-wider">VICTORIA ISLAND, LAGOS</span>
-            </div>
-          </div>
-
+        <div className="w-full bg-[#1c1b1b]/80 backdrop-blur-md border border-neutral-800/80 px-6 py-4 flex items-center justify-end">
           {/* Scroll Cue Indicator */}
           <button
             onClick={onScrollToGallery}

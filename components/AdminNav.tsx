@@ -6,9 +6,12 @@ import { useState } from "react";
 
 const links = [
   { href: "/admin", label: "Works" },
+  { href: "/admin/services", label: "Services" },
+  { href: "/admin/inquiries", label: "Messages" },
   { href: "/admin/works/new", label: "New work" },
   { href: "/admin/settings", label: "Settings" },
 ];
+
 
 export default function AdminNav() {
   const pathname = usePathname();
@@ -32,7 +35,7 @@ export default function AdminNav() {
         <div className="flex items-center gap-4">
           {links.map((link) => {
             const active = link.href === "/admin" ? pathname === "/admin" : pathname.startsWith(link.href);
-            return <Link key={link.href} href={link.href} className={`text-xs uppercase tracking-widest transition-colors ${active ? "text-white" : "text-neutral-500 hover:text-white"}`}>{link.label}</Link>;
+            return <Link key={link.href} href={link.href} className={`text-xs uppercase tracking-widest transition-colors ${active ? "text-white font-bold" : "text-neutral-500 hover:text-white"}`}>{link.label}</Link>;
           })}
         </div>
       </div>
