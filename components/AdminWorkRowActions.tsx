@@ -21,15 +21,16 @@ export default function AdminWorkRowActions({ id, status, hero }: { id: string; 
   }
 
   return (
-    <div className="flex items-center justify-end gap-4">
+    <div className="flex items-center justify-between sm:justify-end gap-3 font-mono text-xs">
       <button
         type="button"
         disabled={busy}
         onClick={togglePublished}
-        className="text-xs uppercase tracking-widest text-neutral-300 transition hover:text-white disabled:cursor-wait disabled:opacity-50"
+        className="px-3 py-1.5 bg-[#1a1a1a] hover:bg-neutral-800 border border-neutral-800 text-neutral-300 hover:text-white rounded text-[11px] uppercase tracking-wider transition disabled:opacity-50"
       >
-        {busy ? "Saving" : status === "published" ? "Unpublish" : "Publish"}
+        {busy ? "Saving..." : status === "published" ? "Unpublish" : "Publish"}
       </button>
+      
       <button
         type="button"
         disabled={busy}
@@ -40,12 +41,20 @@ export default function AdminWorkRowActions({ id, status, hero }: { id: string; 
           router.refresh();
           setBusy(false);
         }}
-        className={`text-xs uppercase tracking-widest transition disabled:cursor-wait disabled:opacity-50 ${hero ? "text-white" : "text-neutral-500 hover:text-neutral-300"}`}
+        className={`px-3 py-1.5 rounded border text-[11px] uppercase tracking-wider transition disabled:opacity-50 ${
+          hero
+            ? "bg-amber-500 text-black font-bold border-amber-400"
+            : "bg-[#1a1a1a] border-neutral-800 text-neutral-400 hover:text-neutral-200"
+        }`}
       >
-        {hero ? "Hero on" : "Hero"}
+        {hero ? "★ Hero On" : "Set Hero"}
       </button>
-      <Link href={`/admin/works/${id}`} className="text-xs uppercase tracking-widest text-white underline underline-offset-4">
-        Edit
+
+      <Link
+        href={`/admin/works/${id}`}
+        className="px-3 py-1.5 bg-amber-500/10 border border-amber-500/40 text-amber-400 font-bold rounded text-[11px] uppercase tracking-wider hover:bg-amber-500 hover:text-black transition"
+      >
+        Edit →
       </Link>
     </div>
   );

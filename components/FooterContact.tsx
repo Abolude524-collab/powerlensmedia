@@ -115,7 +115,7 @@ export default function FooterContact({ settings }: FooterContactProps) {
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-transparent to-transparent opacity-60" />
-                
+
                 <div className="absolute top-4 left-4 bg-black/80 backdrop-blur-md px-3 py-1 border border-neutral-700/60">
                   <span className="font-mono text-[10px] tracking-wider text-white">
                     POWER LENS • DOSSIER FRAME 01
