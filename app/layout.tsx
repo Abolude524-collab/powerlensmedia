@@ -12,13 +12,13 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "POWER LENS | Edwards Godspower (@gpoweredward)",
   description:
-    "Mobile Photography Portfolio by Edwards Godspower (@gpoweredward). High-contrast chiaroscuro photography, urban rhythm, and mobile lens mastery from Lagos to the world.",
+    "Mobile Photography Portfolio by Edwards Godspower (@gpoweredward). High-contrast chiaroscuro photography, urban rhythm, and mobile lens mastery from Niger State to the world.",
   keywords: [
     "Power Lens",
     "Edwards Godspower",
     "gpoweredward",
     "Mobile Photography",
-    "Lagos Photography",
+    "Niger State Photography",
     "Chiaroscuro",
     "Fine Art Mobile Photography",
   ],

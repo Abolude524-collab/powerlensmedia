@@ -94,7 +94,7 @@ export default function FooterContact({ settings }: FooterContactProps) {
           </div>
           <div className="hidden sm:flex items-center gap-4 font-mono text-[11px] text-neutral-400">
             <span>UTC+01:00</span>
-            <span>LAGOS / NIGERIA</span>
+            <span>NIGER STATE / NIGERIA</span>
             <span className="text-white font-semibold">STATUS: ACCEPTING COMMISSIONS</span>
           </div>
         </div>
@@ -142,7 +142,7 @@ export default function FooterContact({ settings }: FooterContactProps) {
                 </p>
                 <div className="flex items-start gap-1.5 pt-2 text-neutral-400 font-mono text-[11px]">
                   <span className="material-symbols-outlined text-[16px] text-white">location_on</span>
-                  <span className="min-w-0">Based in Lagos, Nigeria • Available Worldwide</span>
+                  <span className="min-w-0">Based in Niger State, Nigeria • Available Worldwide</span>
                 </div>
               </div>
             </div>

@@ -138,7 +138,7 @@ export default function MasonryGallery({
                   {/* Bottom Information */}
                   <div className="flex flex-col gap-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                     <span className="text-[10px] uppercase tracking-widest font-mono text-neutral-400">
-                      {photo.category} • {photo.location || "Lagos"}
+                      {photo.category} • {photo.location || "Niger State"}
                     </span>
                     <h3 className="text-lg font-bold text-white tracking-tight font-montserrat uppercase">
                       {photo.title}

@@ -77,7 +77,7 @@ export async function POST(request: Request) {
             </div>
 
             <div style="border-top: 1px solid #262626; pt: 20px; font-size: 12px; color: #666666; font-family: monospace; text-align: center; margin-top: 30px; padding-top: 20px;">
-              Power Lens Media Portfolio System • Lagos, Nigeria
+              Power Lens Media Portfolio System • Niger State, Nigeria
             </div>
           </div>
         `,

@@ -73,7 +73,7 @@ export default function Hero({
 
         <div className="max-w-2xl min-h-[60px] sm:min-h-[80px] mx-auto mb-8 flex items-start justify-center">
           <Typewriter
-            text="Through the lens of modern mobility. Raw, unscripted chiaroscuro light from Lagos to the world."
+            text="Through the lens of modern mobility. Raw, unscripted chiaroscuro light from Niger State to the world."
             className="text-base sm:text-xl text-neutral-300 font-light leading-relaxed"
           />
         </div>
