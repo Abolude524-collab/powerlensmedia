@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface NavbarProps {
   activeSection?: string;
@@ -13,9 +14,9 @@ interface NavbarProps {
 export default function Navbar({
   activeSection = "home",
   profilePictureUrl,
-  onOpenBooking,
 }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,11 +26,19 @@ export default function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { name: "Home", href: "#home", sectionId: "home" },
+    { name: "Services", href: "#services", sectionId: "services" },
+    { name: "Gallery", href: "#gallery", sectionId: "gallery" },
+    { name: "About", href: "#about", sectionId: "about" },
+    { name: "Inquire", href: "#contact", sectionId: "contact" },
+  ];
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0e0e0e]/90 backdrop-blur-xl border-b border-neutral-800/60 py-3 shadow-2xl"
+        scrolled || mobileMenuOpen
+          ? "bg-[#0e0e0e]/95 backdrop-blur-xl border-b border-neutral-800/80 py-3 shadow-2xl"
           : "bg-gradient-to-b from-black/80 via-black/40 to-transparent py-5"
       }`}
     >
@@ -51,48 +60,19 @@ export default function Navbar({
           </div>
         </Link>
 
-        {/* Editorial Navigation */}
+        {/* Desktop Editorial Navigation */}
         <nav className="hidden md:flex items-center gap-7 text-xs font-semibold uppercase tracking-wider font-montserrat">
-          <a
-            href="#home"
-            className={`transition-colors ${
-              activeSection === "home" ? "text-white font-bold" : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            Home
-          </a>
-          <a
-            href="#services"
-            className={`transition-colors ${
-              activeSection === "services" ? "text-white font-bold" : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            Services
-          </a>
-          <a
-            href="#gallery"
-            className={`transition-colors ${
-              activeSection === "gallery" ? "text-white font-bold" : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            Gallery
-          </a>
-          <a
-            href="#about"
-            className={`transition-colors ${
-              activeSection === "about" ? "text-white font-bold" : "text-neutral-400 hover:text-white"
-            }`}
-          >
-            About
-          </a>
-          <a
-            href="#contact"
-            className={`transition-colors ${
-              activeSection === "contact" ? "text-white font-bold" : "text-neutral-300 hover:text-white"
-            }`}
-          >
-            Inquire
-          </a>
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={`transition-colors ${
+                activeSection === link.sectionId ? "text-white font-bold" : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              {link.name}
+            </a>
+          ))}
           <a
             href="https://www.instagram.com/gpoweredward?utm_source=qr&stkn=cmRxMmNhd3VrY2J4"
             target="_blank"
@@ -103,10 +83,10 @@ export default function Navbar({
           </a>
         </nav>
 
-        {/* Header Right Actions */}
+        {/* Header Right Actions & Mobile Toggle */}
         <div className="flex shrink-0 items-center gap-3 sm:gap-4">
           <a
-            href="#contact"
+            href="#booking"
             className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 bg-white text-black font-bold font-mono text-[11px] uppercase tracking-wider hover:bg-neutral-200 transition-colors rounded-xs shadow-sm"
           >
             <span className="material-symbols-outlined text-[15px]">calendar_month</span>
@@ -115,7 +95,7 @@ export default function Navbar({
 
           {profilePictureUrl && (
             <a
-              href="#contact"
+              href="#about"
               className="relative flex items-center justify-center p-0.5 rounded-full ring-1 ring-neutral-700 hover:ring-white transition-all"
               title="Edwards Godspower Dossier"
             >
@@ -130,8 +110,63 @@ export default function Navbar({
               </div>
             </a>
           )}
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden flex items-center justify-center p-2 rounded text-neutral-300 hover:text-white bg-neutral-900 border border-neutral-800 transition-colors"
+            aria-label="Toggle Mobile Menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            <span className="material-symbols-outlined text-[20px]">
+              {mobileMenuOpen ? "close" : "menu"}
+            </span>
+          </button>
         </div>
       </div>
+
+      {/* Mobile Drawer Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="md:hidden bg-[#0e0e0e] border-b border-neutral-800 px-4 pt-4 pb-6 overflow-hidden"
+          >
+            <nav className="flex flex-col gap-3 font-montserrat text-xs font-semibold uppercase tracking-wider">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`py-2 px-3 rounded border transition-colors flex items-center justify-between ${
+                    activeSection === link.sectionId
+                      ? "bg-neutral-900 text-white border-neutral-700 font-bold"
+                      : "text-neutral-400 border-transparent hover:bg-neutral-900/50 hover:text-white"
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+              ))}
+              
+              <div className="pt-2 border-t border-neutral-800 flex flex-col gap-2">
+                <a
+                  href="#booking"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full py-3 px-4 bg-white text-black font-bold font-mono text-xs uppercase tracking-wider flex items-center justify-center gap-2 rounded-xs shadow-md"
+                >
+                  <span className="material-symbols-outlined text-[16px]">calendar_month</span>
+                  <span>Book Session</span>
+                </a>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

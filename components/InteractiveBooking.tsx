@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { trackEvent } from "../lib/analytics";
 
 interface InteractiveBookingProps {
@@ -270,321 +271,344 @@ export default function InteractiveBooking({ contactEmail, onSuccess }: Interact
             </div>
           )}
 
-          {/* STEP 1: DATE & TIME SLOT SELECTION */}
-          {step === "slot" && (
-            <div className="flex flex-col gap-5">
-              {/* Day Navigation Banner - Responsive layout */}
-              <div className="flex items-center justify-between bg-[#0e0e0e] p-2.5 sm:p-3.5 border border-neutral-800 rounded-xs gap-2">
-                <button
-                  type="button"
-                  onClick={handlePrevDay}
-                  disabled={isPrevDisabled}
-                  className={`p-2 sm:px-3 sm:py-2 rounded-xs border font-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-1 shrink-0 ${
-                    isPrevDisabled
-                      ? "bg-[#121212] text-neutral-600 border-neutral-800/80 cursor-not-allowed opacity-40"
-                      : "bg-[#1b1b1b] hover:bg-neutral-800 border-neutral-700 text-neutral-300 hover:text-white active:scale-95 cursor-pointer"
-                  }`}
-                  title={isPrevDisabled ? "Cannot select previous or past days" : "Previous Weekday"}
-                >
-                  <span className="material-symbols-outlined text-[18px] sm:text-[16px]">arrow_back</span>
-                  <span className="hidden sm:inline">Prev</span>
-                </button>
+          {/* STEP TRANSITIONS */}
+          <AnimatePresence mode="wait">
+            {step === "slot" && (
+              <motion.div
+                key="step-slot"
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 16 }}
+                transition={{ duration: 0.3 }}
+                className="flex flex-col gap-5"
+              >
+                {/* Day Navigation Banner - Responsive layout */}
+                <div className="flex items-center justify-between bg-[#0e0e0e] p-2.5 sm:p-3.5 border border-neutral-800 rounded-xs gap-2">
+                  <button
+                    type="button"
+                    onClick={handlePrevDay}
+                    disabled={isPrevDisabled}
+                    className={`p-2 sm:px-3 sm:py-2 rounded-xs border font-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-1 shrink-0 ${
+                      isPrevDisabled
+                        ? "bg-[#121212] text-neutral-600 border-neutral-800/80 cursor-not-allowed opacity-40"
+                        : "bg-[#1b1b1b] hover:bg-neutral-800 border-neutral-700 text-neutral-300 hover:text-white active:scale-95 cursor-pointer"
+                    }`}
+                    title={isPrevDisabled ? "Cannot select previous or past days" : "Previous Weekday"}
+                  >
+                    <span className="material-symbols-outlined text-[18px] sm:text-[16px]">arrow_back</span>
+                    <span className="hidden sm:inline">Prev</span>
+                  </button>
 
-                <div className="text-center min-w-0 flex-1 px-1">
-                  <span className="font-mono text-[8px] sm:text-[9px] text-neutral-500 uppercase tracking-widest block truncate">
-                    SELECTED BUSINESS DAY
-                  </span>
-                  <span className="text-xs sm:text-sm font-extrabold text-white font-montserrat block truncate mt-0.5">
-                    <span className="sm:hidden">{formatDateHeaderMobile(currentDate)}</span>
-                    <span className="hidden sm:inline">{formatDateHeaderFull(currentDate)}</span>
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleNextDay}
-                  className="p-2 sm:px-3 sm:py-2 bg-[#1b1b1b] hover:bg-neutral-800 border border-neutral-700 rounded-xs text-neutral-300 hover:text-white font-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-1 active:scale-95 cursor-pointer shrink-0"
-                  title="Next Weekday"
-                >
-                  <span className="hidden sm:inline">Next</span>
-                  <span className="material-symbols-outlined text-[18px] sm:text-[16px]">arrow_forward</span>
-                </button>
-              </div>
-
-              {/* Date Chips Carousel */}
-              <div className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider px-0.5">
-                  <span>14-DAY CALENDAR VIEW</span>
-                  <span className="text-neutral-500 text-[8px] sm:text-[9px]">SAT &amp; SUN CLOSED</span>
-                </div>
-
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 scrollbar-thin scrollbar-thumb-neutral-700">
-                  {upcomingDays.map((d, i) => {
-                    const active = isSameDay(d, currentDate);
-                    const satSun = isWeekend(d);
-                    const past = isPastDate(d);
-                    const disabled = satSun || past;
-
-                    return (
-                      <button
-                        key={i}
-                        type="button"
-                        disabled={disabled}
-                        onClick={() => {
-                          if (!disabled) {
-                            setCurrentDate(d);
-                            setSelectedTime(null);
-                          }
-                        }}
-                        className={`flex flex-col items-center justify-center min-w-[70px] sm:min-w-[76px] py-2 sm:py-2.5 px-2 rounded-xs border transition-all shrink-0 font-mono text-xs ${
-                          active
-                            ? "bg-white text-black font-bold border-white scale-102 shadow-lg z-10"
-                            : disabled
-                            ? "bg-[#0b0b0b] text-neutral-600 border-neutral-900 opacity-40 cursor-not-allowed"
-                            : "bg-[#0e0e0e] text-neutral-300 border-neutral-800 hover:border-neutral-600 hover:text-white cursor-pointer"
-                        }`}
-                      >
-                        <span className="text-[9px] uppercase tracking-wider opacity-80">
-                          {d.toLocaleDateString("en-US", { weekday: "short" })}
-                        </span>
-                        <span className="text-xs sm:text-sm font-extrabold my-0.5">
-                          {d.getDate()} {d.toLocaleDateString("en-US", { month: "short" })}
-                        </span>
-                        {satSun ? (
-                          <span className="text-[8px] font-sans font-bold text-rose-400/90 uppercase tracking-tight">
-                            CLOSED
-                          </span>
-                        ) : active ? (
-                          <span className="text-[8px] font-mono text-black font-bold uppercase">
-                            ACTIVE
-                          </span>
-                        ) : (
-                          <span className="text-[8px] font-mono text-emerald-400 opacity-80 uppercase">
-                            OPEN
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Categorized Time Slots */}
-              <div className="flex flex-col gap-3.5 border-t border-neutral-800 pt-4">
-                <div className="flex flex-wrap items-center justify-between gap-1.5">
-                  <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neutral-300 font-bold flex items-center gap-1.5">
-                    <span className="material-symbols-outlined text-[15px] text-white">schedule</span>
-                    <span>SELECT SESSION TIME</span>
-                  </span>
-                  {selectedTime ? (
-                    <span className="font-mono text-[10px] sm:text-xs text-emerald-400 font-semibold bg-emerald-950/80 px-2 py-0.5 border border-emerald-800/80 rounded">
-                      Selected: {selectedTime} ✓
-                    </span>
-                  ) : (
-                    <span className="font-mono text-[9px] text-neutral-500 uppercase">
-                      30 MIN SLOTS
-                    </span>
-                  )}
-                </div>
-
-                {/* Morning Slots */}
-                <div className="flex flex-col gap-1.5">
-                  <span className="font-mono text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[13px] text-amber-400">light_mode</span>
-                    <span>Morning Slots</span>
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {morningSlots.map((time) => {
-                      const isSelected = selectedTime === time;
-                      return (
-                        <button
-                          key={time}
-                          type="button"
-                          onClick={() => setSelectedTime(time)}
-                          className={`py-2.5 px-2 rounded-xs border text-[11px] sm:text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                            isSelected
-                              ? "bg-white text-black font-bold border-white shadow-xl"
-                              : "bg-[#0e0e0e] text-neutral-300 border-neutral-800 hover:border-neutral-600 hover:bg-[#191919] hover:text-white"
-                          }`}
-                        >
-                          <span className="material-symbols-outlined text-[14px]">schedule</span>
-                          <span className="truncate">{time}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Afternoon Slots */}
-                <div className="flex flex-col gap-1.5 pt-1">
-                  <span className="font-mono text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider flex items-center gap-1">
-                    <span className="material-symbols-outlined text-[13px] text-indigo-400">dark_mode</span>
-                    <span>Afternoon &amp; Evening Slots</span>
-                  </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    {afternoonSlots.map((time) => {
-                      const isSelected = selectedTime === time;
-                      return (
-                        <button
-                          key={time}
-                          type="button"
-                          onClick={() => setSelectedTime(time)}
-                          className={`py-2.5 px-2 rounded-xs border text-[11px] sm:text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                            isSelected
-                              ? "bg-white text-black font-bold border-white shadow-xl"
-                              : "bg-[#0e0e0e] text-neutral-300 border-neutral-800 hover:border-neutral-600 hover:bg-[#191919] hover:text-white"
-                          }`}
-                        >
-                          <span className="material-symbols-outlined text-[14px]">schedule</span>
-                          <span className="truncate">{time}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Next Step Action Bar */}
-              <div className="flex flex-col sm:flex-row items-center justify-between border-t border-neutral-800 pt-5 gap-3">
-                <span className="font-mono text-[10px] sm:text-xs text-neutral-500">
-                  Step 1 of 2: Select Slot
-                </span>
-
-                <button
-                  type="button"
-                  disabled={!selectedTime}
-                  onClick={() => setStep("details")}
-                  className="w-full sm:w-auto px-6 py-3 bg-white text-black font-bold font-mono text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed shadow-md rounded-xs active:scale-95 cursor-pointer"
-                >
-                  <span>Continue to Details</span>
-                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* STEP 2: CLIENT DETAILS FORM */}
-          {step === "details" && (
-            <form onSubmit={handleBookingSubmit} className="flex flex-col gap-5">
-              {/* Selected Slot Summary Header Card */}
-              <div className="p-3.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-xs bg-emerald-950 border border-emerald-800/80 flex items-center justify-center text-emerald-400 shrink-0">
-                    <span className="material-symbols-outlined text-[18px]">event_available</span>
-                  </div>
-                  <div className="min-w-0">
+                  <div className="text-center min-w-0 flex-1 px-1">
                     <span className="font-mono text-[8px] sm:text-[9px] text-neutral-500 uppercase tracking-widest block truncate">
-                      RESERVED SESSION SLOT
+                      SELECTED BUSINESS DAY
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-white font-montserrat block truncate">
-                      <span className="sm:hidden">{formatDateHeaderMobile(currentDate)} @ {selectedTime}</span>
-                      <span className="hidden sm:inline">{formatDateHeaderFull(currentDate)} @ {selectedTime}</span>
+                    <span className="text-xs sm:text-sm font-extrabold text-white font-montserrat block truncate mt-0.5">
+                      <span className="sm:hidden">{formatDateHeaderMobile(currentDate)}</span>
+                      <span className="hidden sm:inline">{formatDateHeaderFull(currentDate)}</span>
                     </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleNextDay}
+                    className="p-2 sm:px-3 sm:py-2 bg-[#1b1b1b] hover:bg-neutral-800 border border-neutral-700 rounded-xs text-neutral-300 hover:text-white font-mono text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-1 active:scale-95 cursor-pointer shrink-0"
+                    title="Next Weekday"
+                  >
+                    <span className="hidden sm:inline">Next</span>
+                    <span className="material-symbols-outlined text-[18px] sm:text-[16px]">arrow_forward</span>
+                  </button>
+                </div>
+
+                {/* Date Chips Carousel */}
+                <div className="flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider px-0.5">
+                    <span>14-DAY CALENDAR VIEW</span>
+                    <span className="text-neutral-500 text-[8px] sm:text-[9px]">SAT &amp; SUN CLOSED</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 scrollbar-thin scrollbar-thumb-neutral-700">
+                    {upcomingDays.map((d, i) => {
+                      const active = isSameDay(d, currentDate);
+                      const satSun = isWeekend(d);
+                      const past = isPastDate(d);
+                      const disabled = satSun || past;
+
+                      return (
+                        <button
+                          key={i}
+                          type="button"
+                          disabled={disabled}
+                          onClick={() => {
+                            if (!disabled) {
+                              setCurrentDate(d);
+                              setSelectedTime(null);
+                            }
+                          }}
+                          className={`flex flex-col items-center justify-center min-w-[70px] sm:min-w-[76px] py-2 sm:py-2.5 px-2 rounded-xs border transition-all shrink-0 font-mono text-xs ${
+                            active
+                              ? "bg-white text-black font-bold border-white scale-102 shadow-lg z-10"
+                              : disabled
+                              ? "bg-[#0b0b0b] text-neutral-600 border-neutral-900 opacity-40 cursor-not-allowed"
+                              : "bg-[#0e0e0e] text-neutral-300 border-neutral-800 hover:border-neutral-600 hover:text-white cursor-pointer"
+                          }`}
+                        >
+                          <span className="text-[9px] uppercase tracking-wider opacity-80">
+                            {d.toLocaleDateString("en-US", { weekday: "short" })}
+                          </span>
+                          <span className="text-xs sm:text-sm font-extrabold my-0.5">
+                            {d.getDate()} {d.toLocaleDateString("en-US", { month: "short" })}
+                          </span>
+                          {satSun ? (
+                            <span className="text-[8px] font-sans font-bold text-rose-400/90 uppercase tracking-tight">
+                              CLOSED
+                            </span>
+                          ) : active ? (
+                            <span className="text-[8px] font-mono text-black font-bold uppercase">
+                              ACTIVE
+                            </span>
+                          ) : (
+                            <span className="text-[8px] font-mono text-emerald-400 opacity-80 uppercase">
+                              OPEN
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => setStep("slot")}
-                  className="px-2.5 py-1 bg-[#1b1b1b] hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 rounded-xs text-[10px] font-mono uppercase tracking-wider transition-colors flex items-center gap-1 cursor-pointer shrink-0"
-                >
-                  <span className="material-symbols-outlined text-[12px]">edit</span>
-                  <span className="hidden sm:inline">Change</span>
-                </button>
-              </div>
+                {/* Categorized Time Slots */}
+                <div className="flex flex-col gap-3.5 border-t border-neutral-800 pt-4">
+                  <div className="flex flex-wrap items-center justify-between gap-1.5">
+                    <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neutral-300 font-bold flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-[15px] text-white">schedule</span>
+                      <span>SELECT SESSION TIME</span>
+                    </span>
+                    {selectedTime ? (
+                      <span className="font-mono text-[10px] sm:text-xs text-emerald-400 font-semibold bg-emerald-950/80 px-2 py-0.5 border border-emerald-800/80 rounded">
+                        Selected: {selectedTime} ✓
+                      </span>
+                    ) : (
+                      <span className="font-mono text-[9px] text-neutral-500 uppercase">
+                        30 MIN SLOTS
+                      </span>
+                    )}
+                  </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={form.name}
-                    onChange={handleFormChange}
-                    placeholder="e.g. Marcus Vance"
-                    required
-                    className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
-                  />
+                  {/* Morning Slots */}
+                  <div className="flex flex-col gap-1.5">
+                    <span className="font-mono text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[13px] text-amber-400">light_mode</span>
+                      <span>Morning Slots</span>
+                    </span>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {morningSlots.map((time) => {
+                        const isSelected = selectedTime === time;
+                        return (
+                          <motion.button
+                            key={time}
+                            whileTap={{ scale: 0.96 }}
+                            type="button"
+                            onClick={() => setSelectedTime(time)}
+                            className={`py-2.5 px-2 rounded-xs border text-[11px] sm:text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                              isSelected
+                                ? "bg-white text-black font-bold border-white shadow-xl"
+                                : "bg-[#0e0e0e] text-neutral-300 border-neutral-800 hover:border-neutral-600 hover:bg-[#191919] hover:text-white"
+                            }`}
+                          >
+                            <span className="material-symbols-outlined text-[14px]">schedule</span>
+                            <span className="truncate">{time}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Afternoon Slots */}
+                  <div className="flex flex-col gap-1.5 pt-1">
+                    <span className="font-mono text-[9px] sm:text-[10px] text-neutral-400 uppercase tracking-wider flex items-center gap-1">
+                      <span className="material-symbols-outlined text-[13px] text-indigo-400">dark_mode</span>
+                      <span>Afternoon &amp; Evening Slots</span>
+                    </span>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {afternoonSlots.map((time) => {
+                        const isSelected = selectedTime === time;
+                        return (
+                          <motion.button
+                            key={time}
+                            whileTap={{ scale: 0.96 }}
+                            type="button"
+                            onClick={() => setSelectedTime(time)}
+                            className={`py-2.5 px-2 rounded-xs border text-[11px] sm:text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                              isSelected
+                                ? "bg-white text-black font-bold border-white shadow-xl"
+                                : "bg-[#0e0e0e] text-neutral-300 border-neutral-800 hover:border-neutral-600 hover:bg-[#191919] hover:text-white"
+                            }`}
+                          >
+                            <span className="material-symbols-outlined text-[14px]">schedule</span>
+                            <span className="truncate">{time}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={form.phone}
-                    onChange={handleFormChange}
-                    placeholder="e.g. +234 801 234 5678"
-                    required
-                    className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
-                  />
+                {/* Next Step Action Bar */}
+                <div className="flex flex-col sm:flex-row items-center justify-between border-t border-neutral-800 pt-5 gap-3">
+                  <span className="font-mono text-[10px] sm:text-xs text-neutral-500">
+                    Step 1 of 2: Select Slot
+                  </span>
+
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.96 }}
+                    type="button"
+                    disabled={!selectedTime}
+                    onClick={() => setStep("details")}
+                    className="w-full sm:w-auto px-6 py-3 bg-white text-black font-bold font-mono text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed shadow-md rounded-xs cursor-pointer"
+                  >
+                    <span>Continue to Details</span>
+                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                  </motion.button>
                 </div>
-              </div>
+              </motion.div>
+            )}
 
-              <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleFormChange}
-                  placeholder="e.g. marcus@example.com"
-                  required
-                  className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
-                />
-              </div>
+            {/* STEP 2: CLIENT DETAILS FORM */}
+            {step === "details" && (
+              <motion.div
+                key="step-details"
+                initial={{ opacity: 0, x: 16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -16 }}
+                transition={{ duration: 0.3 }}
+              >
+                <form onSubmit={handleBookingSubmit} className="flex flex-col gap-5">
+                  {/* Selected Slot Summary Header Card */}
+                  <div className="p-3.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className="w-8 h-8 rounded-xs bg-emerald-950 border border-emerald-800/80 flex items-center justify-center text-emerald-400 shrink-0">
+                        <span className="material-symbols-outlined text-[18px]">event_available</span>
+                      </div>
+                      <div className="min-w-0">
+                        <span className="font-mono text-[8px] sm:text-[9px] text-neutral-500 uppercase tracking-widest block truncate">
+                          RESERVED SESSION SLOT
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold text-white font-montserrat block truncate">
+                          <span className="sm:hidden">{formatDateHeaderMobile(currentDate)} @ {selectedTime}</span>
+                          <span className="hidden sm:inline">{formatDateHeaderFull(currentDate)} @ {selectedTime}</span>
+                        </span>
+                      </div>
+                    </div>
 
-              <div className="flex flex-col gap-1.5">
-                <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
-                  Session Type / Project Notes (Optional)
-                </label>
-                <textarea
-                  name="message"
-                  rows={3}
-                  value={form.message}
-                  onChange={handleFormChange}
-                  placeholder="Tell us about your shoot ideas, portrait style, or location preferences..."
-                  className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans resize-none"
-                />
-              </div>
+                    <button
+                      type="button"
+                      onClick={() => setStep("slot")}
+                      className="px-2.5 py-1 bg-[#1b1b1b] hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700 rounded-xs text-[10px] font-mono uppercase tracking-wider transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                    >
+                      <span className="material-symbols-outlined text-[12px]">edit</span>
+                      <span className="hidden sm:inline">Change</span>
+                    </button>
+                  </div>
 
-              {/* Form Action Controls */}
-              <div className="flex flex-col sm:flex-row items-center justify-between border-t border-neutral-800 pt-4 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setStep("slot")}
-                  className="w-full sm:w-auto px-4 py-2.5 bg-[#1b1b1b] hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-700 rounded-xs font-mono text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1 cursor-pointer"
-                >
-                  <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-                  <span>Back to Times</span>
-                </button>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="flex flex-col gap-1.5">
+                      <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={form.name}
+                        onChange={handleFormChange}
+                        placeholder="e.g. Marcus Vance"
+                        required
+                        className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
+                      />
+                    </div>
 
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold font-mono text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-md rounded-xs active:scale-95 cursor-pointer"
-                >
-                  {submitting ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                      <span>Confirming Session...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Confirm Appointment</span>
-                      <span aria-hidden="true">→</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </form>
-          )}
+                    <div className="flex flex-col gap-1.5">
+                      <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={form.phone}
+                        onChange={handleFormChange}
+                        placeholder="e.g. +234 801 234 5678"
+                        required
+                        className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleFormChange}
+                      placeholder="e.g. marcus@example.com"
+                      required
+                      className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-mono text-[10px] uppercase tracking-wider text-neutral-400">
+                      Session Type / Project Notes (Optional)
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={3}
+                      value={form.message}
+                      onChange={handleFormChange}
+                      placeholder="Tell us about your shoot ideas, portrait style, or location preferences..."
+                      className="w-full px-3.5 py-2.5 bg-[#0e0e0e] border border-neutral-800 rounded-xs focus:border-white focus:outline-none text-xs text-white placeholder-neutral-600 transition-colors font-sans resize-none"
+                    />
+                  </div>
+
+                  {/* Form Action Controls */}
+                  <div className="flex flex-col sm:flex-row items-center justify-between border-t border-neutral-800 pt-4 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setStep("slot")}
+                      className="w-full sm:w-auto px-4 py-2.5 bg-[#1b1b1b] hover:bg-neutral-800 text-neutral-400 hover:text-white border border-neutral-700 rounded-xs font-mono text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+                      <span>Back to Times</span>
+                    </button>
+
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.96 }}
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold font-mono text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50 shadow-md rounded-xs cursor-pointer"
+                    >
+                      {submitting ? (
+                        <>
+                          <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                          <span>Confirming Session...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Confirm Appointment</span>
+                          <span aria-hidden="true">→</span>
+                        </>
+                      )}
+                    </motion.button>
+                  </div>
+                </form>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </>
       )}
     </div>

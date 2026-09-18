@@ -2,12 +2,36 @@
 
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ServiceItem } from "../lib/content-types";
 
 interface ServicesSectionProps {
   services: ServiceItem[];
   onSelectCategory?: (category: string) => void;
 }
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut" as const,
+    },
+  },
+};
 
 export default function ServicesSection({
   services = [],
@@ -28,7 +52,13 @@ export default function ServicesSection({
   return (
     <section id="services" className="relative w-full py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-[#0e0e0e] select-none">
       {/* Section Header */}
-      <div className="flex flex-col items-center text-center mb-12 sm:mb-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="flex flex-col items-center text-center mb-12 sm:mb-16"
+      >
         <p className="font-mono text-[11px] uppercase tracking-widest text-amber-500 font-semibold mb-3">
           WHAT I DO
         </p>
@@ -38,13 +68,21 @@ export default function ServicesSection({
         <p className="text-neutral-400 max-w-2xl text-sm sm:text-base font-light leading-relaxed">
           From intimate portraits to grand celebrations, every shoot is handled with care and artistic precision.
         </p>
-      </div>
+      </motion.div>
 
       {/* Services Grid (4 per row on desktop) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      >
         {services.map((service) => (
-          <div
+          <motion.div
             key={service._id}
+            variants={itemVariants}
+            whileHover={{ y: -6, transition: { duration: 0.3 } }}
             onClick={() => handleCardClick(service.category)}
             className="group relative h-[360px] sm:h-[400px] w-full overflow-hidden rounded-xl border border-neutral-800/80 bg-neutral-900 transition-all duration-500 hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-950/20 cursor-pointer flex flex-col justify-end p-6"
           >
@@ -75,9 +113,9 @@ export default function ServicesSection({
                 <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

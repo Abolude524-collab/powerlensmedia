@@ -22,6 +22,12 @@ export default function LightboxModal({
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
+    if (photo) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!photo) return;
       if (e.key === "Escape") {
@@ -42,7 +48,10 @@ export default function LightboxModal({
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [photo, photos, onClose, onNavigate]);
 
   if (!photo) return null;

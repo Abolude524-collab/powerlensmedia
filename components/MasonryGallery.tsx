@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { PhotoItem } from "../lib/content-types";
 
 interface MasonryGalleryProps {
@@ -44,7 +45,13 @@ export default function MasonryGallery({
   return (
     <section id="gallery" className="py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section Header & Category Filter Bar */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-neutral-800/80 pb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-neutral-800/80 pb-8"
+      >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-neutral-400 font-mono text-[11px] uppercase tracking-widest">
             <span>Plate Archive</span>
@@ -56,29 +63,35 @@ export default function MasonryGallery({
           </h2>
         </div>
 
-        {/* Filter Pills */}
+        {/* Filter Pills with Animated Active Indicator */}
         <div className="flex min-w-0 items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none touch-pan-x">
           {categories.map((cat) => {
             const isActive = activeCategory === cat || (activeCategory === "All" && cat === "All Works");
             return (
-              <button
+              <motion.button
                 key={cat}
                 onClick={() => onSelectCategory(cat)}
-                className={`relative min-h-10 shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all whitespace-nowrap ${
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className={`relative min-h-10 shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors whitespace-nowrap cursor-pointer ${
                   isActive
-                    ? "bg-neutral-900 text-white border border-neutral-700 shadow-md"
+                    ? "text-white"
                     : "bg-neutral-950/60 text-neutral-400 hover:text-white border border-neutral-800/60"
                 }`}
               >
-                <span>{cat}</span>
+                <span className="relative z-10">{cat}</span>
                 {isActive && (
-                  <span className="absolute bottom-0 left-4 right-4 h-[2px] bg-white rounded-full" />
+                  <motion.span
+                    layoutId="activeFilterPill"
+                    className="absolute inset-0 bg-neutral-900 border border-neutral-700 shadow-md rounded-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
                 )}
-              </button>
+              </motion.button>
             );
           })}
         </div>
-      </div>
+      </motion.div>
 
       {/* Masonry Columns Layout */}
       {filteredPhotos.length === 0 ? (
@@ -100,10 +113,15 @@ export default function MasonryGallery({
       ) : (
         <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
           {filteredPhotos.map((photo) => (
-            <div
+            <motion.div
               key={photo._id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              whileHover={{ y: -4 }}
               onClick={() => onSelectPhoto(photo)}
-              className="break-inside-avoid group relative rounded-sm overflow-hidden bg-[#1c1b1b] border border-neutral-800/80 cursor-pointer shadow-xl hover:shadow-2xl transition-all duration-300 transform-gpu"
+              className="break-inside-avoid group relative rounded-sm overflow-hidden bg-[#1c1b1b] border border-neutral-800/80 cursor-pointer shadow-xl hover:shadow-2xl transition-all duration-300 transform-gpu mb-6"
             >
               {/* Image Container with Native Aspect Ratio */}
               <div
@@ -149,19 +167,21 @@ export default function MasonryGallery({
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}
       {filteredPhotos.length > 0 && previewMode && (
         <div className="mt-12 flex justify-center border-t border-neutral-800/80 pt-8">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             type="button"
             onClick={onTogglePreview}
-            className="border border-neutral-700 px-6 py-3 text-xs font-semibold uppercase tracking-widest text-neutral-300 transition hover:border-white hover:text-white"
+            className="border border-neutral-700 px-6 py-3 text-xs font-semibold uppercase tracking-widest text-neutral-300 transition hover:border-white hover:text-white cursor-pointer"
           >
             See full gallery
-          </button>
+          </motion.button>
         </div>
       )}
     </section>

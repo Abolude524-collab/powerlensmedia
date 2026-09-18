@@ -14,6 +14,14 @@ export async function POST(request: Request) {
       );
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { error: "Please provide a valid email address." },
+        { status: 400 }
+      );
+    }
+
     // 1. Persist the client message in database for Admin Panel retrieval
     const savedRecord = await saveInquiry({ name, email, phone, message });
 

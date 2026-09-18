@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { SiteSettings } from "../lib/content-types";
 import { trackEvent } from "../lib/analytics";
 import CalendlyModal from "./CalendlyModal";
@@ -134,7 +135,13 @@ export default function FooterContact({ settings }: FooterContactProps) {
         {/* Dossier Grid: Editorial Portrait & Narrative */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-16 border-b border-neutral-900">
           {/* Left Column: Portrait & Telemetry */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="lg:col-span-5 flex flex-col gap-6"
+          >
             <div className="relative w-full bg-[#131313] overflow-hidden border border-neutral-800 shadow-2xl group">
               <div className="w-full aspect-[3/4] relative overflow-hidden bg-neutral-900">
                 {settings.profilePictureUrl && (
@@ -292,10 +299,16 @@ export default function FooterContact({ settings }: FooterContactProps) {
                 })}
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Statement, Dedicated Contact Form & Dedicated Booking Section */}
-          <div className="lg:col-span-7 flex flex-col gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
+            className="lg:col-span-7 flex flex-col gap-12"
+          >
             <div>
               <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 block mb-2">
                 STATEMENT / PHILOSOPHY
@@ -467,7 +480,7 @@ export default function FooterContact({ settings }: FooterContactProps) {
               {/* Custom Interactive Scheduler */}
               <InteractiveBooking contactEmail={settings.contactEmail} />
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Bottom Copyright */}

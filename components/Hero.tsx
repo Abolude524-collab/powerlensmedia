@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { PhotoItem, SiteSettings } from "../lib/content-types";
 import Typewriter from "./Typewriter";
 
@@ -56,63 +57,105 @@ export default function Hero({
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-[#0e0e0e]/90 pointer-events-none" />
 
       {/* Centered Editorial Type Core */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center my-auto py-12 pt-24">
-        <div className="inline-block mb-3 overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center my-auto py-12 pt-24"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="inline-block mb-3 overflow-hidden"
+        >
           <p className="text-[11px] font-mono uppercase tracking-widest text-neutral-400">
             Mobile Photography / {settings.alias}
           </p>
-        </div>
+        </motion.div>
 
-        <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase text-white tracking-tighter max-w-4xl font-montserrat leading-[0.95] mb-6">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          className="text-5xl sm:text-7xl md:text-8xl font-extrabold uppercase text-white tracking-tighter max-w-4xl font-montserrat leading-[0.95] mb-6"
+        >
           {settings.photographerName}
-        </h1>
+        </motion.h1>
 
-        <p className="mb-6 font-serif text-xl italic tracking-normal text-white/90 sm:text-2xl">
+        <motion.p
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="mb-6 font-serif text-xl italic tracking-normal text-white/90 sm:text-2xl"
+        >
           Every picture tells a story.
-        </p>
+        </motion.p>
 
-        <div className="max-w-2xl min-h-[60px] sm:min-h-[80px] mx-auto mb-8 flex items-start justify-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="max-w-2xl min-h-[60px] sm:min-h-[80px] mx-auto mb-8 flex items-start justify-center"
+        >
           <Typewriter
             text="Through the lens of modern mobility. Raw, unscripted chiaroscuro light from Niger State to the world."
             className="text-base sm:text-xl text-neutral-300 font-light leading-relaxed"
           />
-        </div>
+        </motion.div>
 
         {/* Action Triggers */}
-        <div className="flex w-full flex-col sm:w-auto sm:flex-row items-center gap-4">
-          <button
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.65 }}
+          className="flex w-full flex-col sm:w-auto sm:flex-row items-center gap-4"
+        >
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             onClick={onScrollToGallery}
-            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-3.5 bg-white text-black hover:bg-neutral-200 transition-all duration-300 font-semibold text-xs uppercase tracking-wider group shadow-xl active:scale-95"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-8 py-3.5 bg-white text-black hover:bg-neutral-200 transition-all duration-300 font-semibold text-xs uppercase tracking-wider group shadow-xl active:scale-95 cursor-pointer"
           >
             <span>View Gallery</span>
             <span className="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-y-1">
               arrow_downward
             </span>
-          </button>
+          </motion.button>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.96 }}
             href="#contact"
-            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3.5 text-neutral-300 hover:text-white border border-neutral-700/60 hover:border-neutral-500 bg-neutral-900/60 backdrop-blur-md transition-colors text-xs font-semibold uppercase tracking-wider"
+            className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-6 py-3.5 text-neutral-300 hover:text-white border border-neutral-700/60 hover:border-neutral-500 bg-neutral-900/60 backdrop-blur-md transition-colors text-xs font-semibold uppercase tracking-wider cursor-pointer"
           >
             <span>Inquire &amp; Dossier</span>
             <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-          </a>
-        </div>
-      </div>
+          </motion.a>
+        </motion.div>
+      </motion.div>
 
       {/* Bottom Scroll Cue */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8 flex items-center justify-center">
-        {/* Scroll Cue Indicator */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8 flex items-center justify-center"
+      >
         <button
           onClick={onScrollToGallery}
           className="flex items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer group shrink-0"
           aria-label="Scroll to gallery"
         >
-          <div className="w-5 h-8 rounded-full border border-neutral-400/60 group-hover:border-white flex items-start justify-center p-1 transition-colors">
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-5 h-8 rounded-full border border-neutral-400/60 group-hover:border-white flex items-start justify-center p-1 transition-colors"
+          >
             <span className="w-1 h-2 rounded-full bg-white animate-bounce" />
-          </div>
+          </motion.div>
         </button>
-      </div>
+      </motion.div>
     </section>
   );
 }
