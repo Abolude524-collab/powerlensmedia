@@ -101,19 +101,17 @@ export default function Hero({
       </div>
 
       {/* Bottom Scroll Cue */}
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8">
-        <div className="w-full bg-[#1c1b1b]/80 backdrop-blur-md border border-neutral-800/80 px-6 py-4 flex items-center justify-end">
-          {/* Scroll Cue Indicator */}
-          <button
-            onClick={onScrollToGallery}
-            className="flex items-center gap-3 text-neutral-400 hover:text-white transition-colors cursor-pointer group shrink-0"
-          >
-            <span className="font-mono text-[10px] uppercase tracking-widest">SCROLL TO EXPLORE</span>
-            <div className="w-5 h-8 rounded-full bg-neutral-800 border border-neutral-700 flex items-start justify-center p-1">
-              <span className="w-1 h-2 rounded-full bg-white animate-bounce" />
-            </div>
-          </button>
-        </div>
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-8 flex items-center justify-center">
+        {/* Scroll Cue Indicator */}
+        <button
+          onClick={onScrollToGallery}
+          className="flex items-center justify-center text-neutral-400 hover:text-white transition-colors cursor-pointer group shrink-0"
+          aria-label="Scroll to gallery"
+        >
+          <div className="w-5 h-8 rounded-full border border-neutral-400/60 group-hover:border-white flex items-start justify-center p-1 transition-colors">
+            <span className="w-1 h-2 rounded-full bg-white animate-bounce" />
+          </div>
+        </button>
       </div>
     </section>
   );
