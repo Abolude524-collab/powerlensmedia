@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { startAdminTour } from "./AdminTour";
 
 const links = [
   { href: "/admin", label: "Works" },
@@ -38,6 +39,10 @@ export default function AdminNav() {
     router.refresh();
   }
 
+  function handleTriggerTour() {
+    startAdminTour(pathname);
+  }
+
   return (
     <nav className="mb-8 border-b border-neutral-800 pb-4 font-sans select-none" aria-label="Admin navigation">
       {/* Desktop & Mobile Header Bar */}
@@ -51,14 +56,16 @@ export default function AdminNav() {
           <div className="hidden h-4 w-px bg-neutral-800 sm:block" />
           
           {/* Desktop Nav Links */}
-          <div className="hidden items-center gap-4 sm:flex">
+          <div id="tour-admin-nav" className="hidden items-center gap-4 sm:flex">
             {links.map((link) => {
               const active = link.href === "/admin" ? pathname === "/admin" : pathname.startsWith(link.href);
               const isMessages = link.href === "/admin/inquiries";
+              const isServices = link.href === "/admin/services";
               return (
                 <Link
                   key={link.href}
                   href={link.href}
+                  id={isServices ? "tour-link-services" : undefined}
                   className={`text-xs uppercase tracking-widest transition-colors flex items-center gap-1.5 ${
                     active ? "text-amber-400 font-bold" : "text-neutral-400 hover:text-white"
                   }`}
@@ -76,7 +83,17 @@ export default function AdminNav() {
         </div>
 
         {/* Desktop Quick Actions */}
-        <div className="hidden items-center gap-4 sm:flex">
+        <div id="tour-quick-links" className="hidden items-center gap-4 sm:flex">
+          <button
+            type="button"
+            onClick={handleTriggerTour}
+            className="text-xs uppercase tracking-widest text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 font-mono font-semibold cursor-pointer"
+            title="Take Control Room Tour"
+          >
+            <span className="material-symbols-outlined text-[15px]">explore</span>
+            <span>Tour</span>
+          </button>
+          <div className="h-4 w-px bg-neutral-800" />
           <Link href="/" target="_blank" rel="noopener noreferrer" className="text-xs uppercase tracking-widest text-neutral-400 transition-colors hover:text-white flex items-center gap-1">
             <span>View site</span>
             <span className="material-symbols-outlined text-[13px]">open_in_new</span>
@@ -93,6 +110,14 @@ export default function AdminNav() {
 
         {/* Mobile Hamburger Toggle Button */}
         <div className="flex items-center gap-2 sm:hidden">
+          <button
+            type="button"
+            onClick={handleTriggerTour}
+            className="px-2 py-1 bg-amber-500/10 border border-amber-500/40 text-amber-400 font-mono font-semibold text-[10px] uppercase tracking-wider rounded-md flex items-center gap-1"
+          >
+            <span className="material-symbols-outlined text-[14px]">explore</span>
+            <span>Tour</span>
+          </button>
           {unreadCount > 0 && (
             <Link href="/admin/inquiries" className="px-2 py-0.5 bg-amber-400 text-black font-mono font-bold text-[10px] rounded-full">
               {unreadCount} new
@@ -136,7 +161,16 @@ export default function AdminNav() {
             );
           })}
           
-          <div className="pt-2 border-t border-neutral-800 grid grid-cols-2 gap-2 mt-2">
+          <button
+            type="button"
+            onClick={() => { setMobileMenuOpen(false); handleTriggerTour(); }}
+            className="w-full py-3 px-3 bg-amber-500/10 border border-amber-500/40 text-amber-400 text-xs font-mono uppercase tracking-wider rounded-lg text-center flex items-center justify-center gap-1.5 font-bold my-1"
+          >
+            <span className="material-symbols-outlined text-[16px]">explore</span>
+            <span>Take Control Room Tour</span>
+          </button>
+
+          <div className="pt-2 border-t border-neutral-800 grid grid-cols-2 gap-2 mt-1">
             <Link
               href="/"
               target="_blank"

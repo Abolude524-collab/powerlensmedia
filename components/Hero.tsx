@@ -46,6 +46,7 @@ export default function Hero({
             alt={photo.altText || "Edwards Godspower Chiaroscuro Mobile Photography"}
             fill
             priority={index === 0}
+            loading={index === 0 ? "eager" : "lazy"}
             sizes="100vw"
             className={`object-cover object-[center_24%] contrast-125 transition-[opacity,transform] duration-[1800ms] ease-out ${index === safeActiveBackground ? "scale-105 opacity-100" : "scale-100 opacity-0"}`}
           />

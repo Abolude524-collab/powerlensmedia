@@ -2,12 +2,18 @@ import { getAdminServices } from "../../../../lib/content-db";
 import { requireOwner } from "../../../../lib/auth";
 import AdminNav from "../../../../components/AdminNav";
 import EditServiceForm from "./EditServiceForm";
+import NewServicePage from "../new/page";
 
 export const dynamic = "force-dynamic";
 
 export default async function EditServicePage({ params }: { params: Promise<{ id: string }> }) {
   await requireOwner();
   const { id } = await params;
+  
+  if (id === "new") {
+    return <NewServicePage />;
+  }
+
   const services = await getAdminServices();
   const service = services.find((s) => s._id === id);
 

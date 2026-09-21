@@ -5,6 +5,7 @@ import { destroySession, requireOwner } from "../../lib/auth";
 import { redirect } from "next/navigation";
 import AdminWorkRowActions from "../../components/AdminWorkRowActions";
 import AdminNav from "../../components/AdminNav";
+import AdminTour from "../../components/AdminTour";
 
 export default async function AdminPage() {
   await requireOwner();
@@ -21,6 +22,7 @@ export default async function AdminPage() {
 
   return (
     <main className="min-h-screen bg-[#0e0e0e] px-4 py-6 text-[#e5e2e1] sm:px-8 font-sans select-none">
+      <AdminTour />
       <div className="mx-auto max-w-6xl">
         <AdminNav />
         
@@ -35,7 +37,7 @@ export default async function AdminPage() {
             </h1>
           </div>
           
-          <div className="flex flex-wrap items-center gap-2">
+          <div id="tour-header-actions" className="flex flex-wrap items-center gap-2">
             <Link
               href="/admin/works/new"
               className="px-4 py-2.5 bg-amber-500 text-black font-bold text-xs font-mono uppercase tracking-wider hover:bg-amber-400 transition-all rounded-lg shadow-md"
@@ -63,7 +65,7 @@ export default async function AdminPage() {
         </header>
 
         {/* Overview Stats Cards (Compact 2x2 grid on mobile) */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div id="tour-stats-grid" className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="border border-neutral-800/90 bg-[#141414] p-4 rounded-xl">
             <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-400 font-medium">Total Works</p>
             <p className="mt-1 text-2xl sm:text-3xl text-white font-bold font-montserrat">{works.length}</p>
@@ -91,7 +93,7 @@ export default async function AdminPage() {
         </div>
 
         {/* Analytics Telemetry Bar (Compact 2x2 grid on mobile) */}
-        <section className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <section id="tour-analytics-grid" className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="border border-neutral-800/80 bg-[#141414] p-3.5 rounded-xl">
             <p className="font-mono text-[10px] uppercase tracking-widest text-neutral-400">Gallery Opens</p>
             <p className="mt-1 text-xl text-white font-bold">{analytics.galleryOpens}</p>
@@ -111,7 +113,7 @@ export default async function AdminPage() {
         </section>
 
         {/* Works Archive Table / Card List */}
-        <section className="mt-8 border border-neutral-800 bg-[#121212] rounded-xl overflow-hidden shadow-2xl">
+        <section id="tour-works-table" className="mt-8 border border-neutral-800 bg-[#121212] rounded-xl overflow-hidden shadow-2xl">
           <div className="hidden sm:grid grid-cols-[3.5rem_1fr_auto_auto] gap-4 border-b border-neutral-800 px-5 py-3 font-mono text-[10px] uppercase tracking-widest text-neutral-400">
             <span>Preview</span>
             <span>Work</span>

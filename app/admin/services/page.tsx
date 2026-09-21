@@ -4,6 +4,7 @@ import { getAdminServices } from "../../../lib/content-db";
 import { requireOwner } from "../../../lib/auth";
 import AdminNav from "../../../components/AdminNav";
 import AdminServiceRowActions from "../../../components/AdminServiceRowActions";
+import AdminTour from "../../../components/AdminTour";
 
 export const dynamic = "force-dynamic";
 
@@ -13,11 +14,12 @@ export default async function AdminServicesPage() {
 
   return (
     <main className="min-h-screen bg-[#0e0e0e] px-4 py-6 text-[#e5e2e1] sm:px-8 font-sans select-none">
+      <AdminTour />
       <div className="mx-auto max-w-6xl">
         <AdminNav />
         
         {/* Header */}
-        <header className="mb-8 flex flex-col gap-4 border-b border-neutral-800 pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <header id="tour-services-header" className="mb-8 flex flex-col gap-4 border-b border-neutral-800 pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="mb-1.5 font-mono text-[10px] uppercase tracking-[0.3em] text-amber-500 font-semibold">
               Power Lens / Control Room
@@ -37,7 +39,7 @@ export default async function AdminServicesPage() {
         </header>
 
         {/* Services List Table / Mobile Cards */}
-        <section className="border border-neutral-800 bg-[#121212] rounded-xl overflow-hidden shadow-2xl">
+        <section id="tour-services-table" className="border border-neutral-800 bg-[#121212] rounded-xl overflow-hidden shadow-2xl">
           <div className="hidden sm:grid grid-cols-[3.5rem_1fr_auto_auto] gap-4 border-b border-neutral-800 px-5 py-3 font-mono text-[10px] uppercase tracking-widest text-neutral-400">
             <span>Cover</span>
             <span>Service &amp; Tagline</span>

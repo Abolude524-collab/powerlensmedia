@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} dark h-full antialiased`}>
+    <html lang="en" className={`${montserrat.variable} dark h-full antialiased`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -44,7 +44,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#0e0e0e] text-[#e5e2e1] font-sans min-h-screen flex flex-col selection:bg-white selection:text-black">
+      <body className="bg-[#0e0e0e] text-[#e5e2e1] font-sans min-h-screen flex flex-col selection:bg-white selection:text-black" suppressHydrationWarning>
         {children}
       </body>
     </html>
