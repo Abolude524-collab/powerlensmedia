@@ -24,6 +24,8 @@ export default function MasonryGallery({
   previewMode,
   onTogglePreview,
 }: MasonryGalleryProps) {
+  const categoryScrollRef = React.useRef<HTMLDivElement>(null);
+
   const categoryPhotos =
     activeCategory === "All Works" || activeCategory === "All"
       ? photos
@@ -41,6 +43,35 @@ export default function MasonryGallery({
         }, new Map<string, PhotoItem[]>()).values()
       ).flatMap((group) => group.sort((first, second) => Number(Boolean(second.featured)) - Number(Boolean(first.featured))).slice(0, 2))
     : categoryPhotos;
+
+  const handleNextCategory = () => {
+    if (!categories || categories.length <= 1) return;
+    const currentIndex = categories.findIndex(
+      (cat) => cat === activeCategory || (activeCategory === "All" && cat === "All Works")
+    );
+    const nextIndex = currentIndex < 0 || currentIndex === categories.length - 1 ? 0 : currentIndex + 1;
+    const nextCat = categories[nextIndex];
+    onSelectCategory(nextCat);
+
+    if (categoryScrollRef.current) {
+      const targetPill = categoryScrollRef.current.children[nextIndex] as HTMLElement;
+      if (targetPill) {
+        targetPill.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      }
+    }
+  };
+
+  const handleScrollRight = () => {
+    if (categoryScrollRef.current) {
+      categoryScrollRef.current.scrollBy({ left: 180, behavior: "smooth" });
+    }
+  };
+
+  const handleScrollLeft = () => {
+    if (categoryScrollRef.current) {
+      categoryScrollRef.current.scrollBy({ left: -180, behavior: "smooth" });
+    }
+  };
 
   return (
     <section id="gallery" className="py-20 md:py-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,33 +94,80 @@ export default function MasonryGallery({
           </h2>
         </div>
 
-        {/* Filter Pills with Animated Active Indicator */}
-        <div className="flex min-w-0 items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none touch-pan-x">
-          {categories.map((cat) => {
-            const isActive = activeCategory === cat || (activeCategory === "All" && cat === "All Works");
-            return (
+        {/* Filter Pills & Next Category Controls */}
+        <div className="flex flex-col gap-3 w-full md:max-w-[65%]">
+          <div className="relative flex items-center gap-1.5 w-full">
+            {/* Left Scroll Arrow */}
+            <button
+              type="button"
+              onClick={handleScrollLeft}
+              aria-label="Scroll categories left"
+              className="flex shrink-0 items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700 transition cursor-pointer active:scale-95"
+            >
+              <span className="material-symbols-outlined text-xs sm:text-sm">chevron_left</span>
+            </button>
+
+            {/* Scrollable Pills Container */}
+            <div
+              ref={categoryScrollRef}
+              className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none touch-pan-x scroll-smooth"
+            >
+              {categories.map((cat) => {
+                const isActive = activeCategory === cat || (activeCategory === "All" && cat === "All Works");
+                return (
+                  <motion.button
+                    key={cat}
+                    onClick={() => onSelectCategory(cat)}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className={`relative min-h-9 sm:min-h-10 shrink-0 px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-colors whitespace-nowrap cursor-pointer ${
+                      isActive
+                        ? "text-white"
+                        : "bg-neutral-950/60 text-neutral-400 hover:text-white border border-neutral-800/60"
+                    }`}
+                  >
+                    <span className="relative z-10">{cat}</span>
+                    {isActive && (
+                      <motion.span
+                        layoutId="activeFilterPill"
+                        className="absolute inset-0 bg-neutral-900 border border-neutral-700 shadow-md rounded-full"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* Right Scroll Arrow */}
+            <button
+              type="button"
+              onClick={handleScrollRight}
+              aria-label="Scroll categories right"
+              className="flex shrink-0 items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-700 transition cursor-pointer active:scale-95"
+            >
+              <span className="material-symbols-outlined text-xs sm:text-sm">chevron_right</span>
+            </button>
+          </div>
+
+          {/* Action Row Under Categories */}
+          {categories.length > 1 && (
+            <div className="flex items-center justify-between gap-2 text-xs text-neutral-400 pt-1 w-full">
+              <span className="font-mono text-[9px] sm:text-[10px] tracking-wider uppercase text-neutral-500 shrink-0">
+                More categories available →
+              </span>
               <motion.button
-                key={cat}
-                onClick={() => onSelectCategory(cat)}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className={`relative min-h-10 shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-colors whitespace-nowrap cursor-pointer ${
-                  isActive
-                    ? "text-white"
-                    : "bg-neutral-950/60 text-neutral-400 hover:text-white border border-neutral-800/60"
-                }`}
+                type="button"
+                onClick={handleNextCategory}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 border border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:text-white text-[11px] sm:text-xs font-semibold uppercase tracking-wider transition-all cursor-pointer shadow-sm active:scale-95 shrink-0"
               >
-                <span className="relative z-10">{cat}</span>
-                {isActive && (
-                  <motion.span
-                    layoutId="activeFilterPill"
-                    className="absolute inset-0 bg-neutral-900 border border-neutral-700 shadow-md rounded-full"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
+                <span>Next Category</span>
+                <span className="material-symbols-outlined text-xs sm:text-sm text-amber-500">arrow_forward</span>
               </motion.button>
-            );
-          })}
+            </div>
+          )}
         </div>
       </motion.div>
 
